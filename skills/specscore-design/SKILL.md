@@ -32,7 +32,7 @@ This applies to **every** Feature, regardless of perceived simplicity. The only 
 
 - A SpecScore Idea is `Approved` and ready to become a Feature.
 - User has a clear, high-conviction buildable intent (may skip `specscore:ideate`).
-- Behavior of an existing Feature needs to change — **revise in place** (see `../shared/path-conventions.md`).
+- Behavior of an existing Feature needs to change — **revise in place** (see [path-conventions.md](../shared/path-conventions.md)).
 
 ## Anti-Pattern: "This Is Too Simple To Need A Design"
 
@@ -42,7 +42,7 @@ Every Feature goes through this. A toggle, a one-line config, a single utility �
 
 1. **Inputs check.** If triggered from an approved Idea, load it and list the Idea's assumptions that this Feature must validate. If no Idea exists, ask: "Is this ready to design, or should we ideate first?" — don't force `specscore:ideate` on high-conviction users.
 2. **Scope decomposition.** If the intent spans multiple independent subsystems, stop and help the user decompose into multiple Features before continuing.
-3. **Revision vs new.** If a Feature with this slug already exists, decide: revise in place (default) or create a successor with `supersedes:` (only when scope change invalidates existing ACs).
+3. **Revision vs new.** If a Feature with this slug already exists, decide: revise in place (default) or create a successor with `supersedes:` (only when scope change invalidates existing ACs). See [path-conventions.md](../shared/path-conventions.md).
 
 ## Checklist
 
@@ -50,17 +50,17 @@ Create a task for each and complete in order:
 
 1. **Explore project context** — existing Features, recent commits, related specs.
 2. **Scope decomposition check.**
-3. **Offer visual companion** (if visual questions are ahead) — own message, no other content. See `references/visual-companion.md` (still TBD — see the analysis doc Q11.1).
-4. **Ask clarifying questions** — one at a time, multiple-choice preferred. See `../shared/question-cadence.md`.
+3. **Offer visual companion** (if visual questions are ahead) — own message, no other content. See [visual-companion.md](references/visual-companion.md) (still TBD — see [the analysis doc §11.1](../../docs/ideas/ideate-vs-brainstorming-skills-analysis.md)).
+4. **Ask clarifying questions** — one at a time, multiple-choice preferred. See [question-cadence.md](../shared/question-cadence.md).
 5. **Propose 2–3 approaches** with trade-offs; lead with your recommendation. Use `specscore:ideate` lenses (inversion, constraint removal, simplification) where useful.
 6. **Present design sections** one at a time, get approval after each.
 7. **Author the Feature artifact** — `README.md` + `requirements/*.md`.
-8. **Rehearse stub decision** — per-AC heuristic. See `../shared/rehearse-heuristic.md`.
+8. **Rehearse stub decision** — per-AC heuristic. See [rehearse-heuristic.md](../shared/rehearse-heuristic.md).
 9. **Lint** — `specscore lint spec/features/<slug>/`.
 10. **Inline self-review** — placeholders, consistency, scope, ambiguity.
-11. **Dispatch spec-document-reviewer subagent** — see `references/reviewer-prompt.md`. Must return `Approved` before user review.
+11. **Dispatch spec-document-reviewer subagent** — see [reviewer-prompt.md](references/reviewer-prompt.md). Must return `Approved` before user review.
 12. **User review gate** — user reviews the written Feature; wait for approval.
-13. **Emit events** — `feature.designed` on reviewer approval; `feature.approved` on user approval.
+13. **Emit events** — `feature.designed` on reviewer approval; `feature.approved` on user approval. See [synchestra-events.md](../shared/synchestra-events.md).
 14. **Transition to `writing-plans`.**
 
 ## Design Sections (scale to complexity)
@@ -141,7 +141,7 @@ If you can't phrase an outcome as `Then <observable>`, the AC is too abstract �
 
 ## Rehearse Stub Decision
 
-After drafting ACs, for each one apply the heuristic in `../shared/rehearse-heuristic.md`:
+After drafting ACs, for each one apply the heuristic in [rehearse-heuristic.md](../shared/rehearse-heuristic.md):
 
 - **Testable** (has CLI/HTTP/pure-fn/data/UI-selector/fs/event surface): scaffold `spec/features/<slug>/tests/<req-id>-<ac-id>.md` with `status: pending`.
 - **Not testable** (subjective, abstract, undefined observer, doc-only Feature): skip; record reason in the Feature's `README.md` under `## Rehearse Integration`.
@@ -161,7 +161,7 @@ Fix inline. Don't re-review; move on.
 
 ## Reviewer Subagent
 
-Dispatch a spec-document-reviewer subagent using `references/reviewer-prompt.md`. Status must be `Approved` before the user review gate. If `Issues Found`, fix and re-dispatch — advisory recommendations may be ignored.
+Dispatch a spec-document-reviewer subagent using [reviewer-prompt.md](references/reviewer-prompt.md). Status must be `Approved` before the user review gate. If `Issues Found`, fix and re-dispatch — advisory recommendations may be ignored.
 
 ## User Review Gate
 
@@ -220,11 +220,11 @@ If the user has `obra/superpowers` installed, we may reuse its browser-based vis
 
 ## References
 
-- `references/reviewer-prompt.md` — subagent template (to be ported from upstream).
-- `references/visual-companion.md` — pending decision.
-- `../shared/philosophy.md`
-- `../shared/path-conventions.md`
-- `../shared/specscore-lint-rules.md`
-- `../shared/synchestra-events.md`
-- `../shared/question-cadence.md`
-- `../shared/rehearse-heuristic.md`
+- [reviewer-prompt.md](references/reviewer-prompt.md) — spec-document reviewer subagent template.
+- [visual-companion.md](references/visual-companion.md) — visual companion strategy (decision pending).
+- [philosophy.md](../shared/philosophy.md) — shared tenets.
+- [path-conventions.md](../shared/path-conventions.md) — `spec/` vs `docs/` rules.
+- [specscore-lint-rules.md](../shared/specscore-lint-rules.md) — lint contract this skill assumes.
+- [synchestra-events.md](../shared/synchestra-events.md) — event payloads emitted by this skill.
+- [question-cadence.md](../shared/question-cadence.md) — when to batch vs single-question.
+- [rehearse-heuristic.md](../shared/rehearse-heuristic.md) — per-AC testability decision.

@@ -34,11 +34,11 @@ Ideas that can't be lint-clean aren't ready to be designed.
 
 ## Philosophy
 
-See `../shared/philosophy.md`. Key tenets here: *simplicity is the ultimate sophistication*, *say no to 1,000 things*, *challenge every assumption*, *unsaved ideation is waste*.
+See [philosophy.md](../shared/philosophy.md). Key tenets here: *simplicity is the ultimate sophistication*, *say no to 1,000 things*, *challenge every assumption*, *unsaved ideation is waste*.
 
 ## Path Conventions
 
-Artifacts land at `spec/ideas/<slug>.md`. See `../shared/path-conventions.md`. Never use `docs/ideas/`.
+Artifacts land at `spec/ideas/<slug>.md`. See [path-conventions.md](../shared/path-conventions.md). Never use `docs/ideas/`.
 
 ## Checklist
 
@@ -52,14 +52,14 @@ Create a task for each and complete in order:
 6. **Lint** the artifact: `specscore lint spec/ideas/<slug>.md`.
 7. **Inline self-review** — placeholders, contradictions, ambiguity, scope.
 8. **User review** — ask the user to review and approve the Recommended Direction.
-9. **Emit events** — `idea.drafted` on first write; `idea.approved` after user approval. See `../shared/synchestra-events.md`.
+9. **Emit events** — `idea.drafted` on first write; `idea.approved` after user approval. See [synchestra-events.md](../shared/synchestra-events.md).
 
 ## Phase 1 — Understand & Expand (Divergent)
 
 **Goal:** Open the idea up before narrowing.
 
 1. **Restate as a "How Might We…"** sentence. Forces clarity on what's actually being solved.
-2. **Ask 3–5 sharpening questions** (batched — see `../shared/question-cadence.md`). Focus:
+2. **Ask 3–5 sharpening questions** (batched — see [question-cadence.md](../shared/question-cadence.md)). Focus:
    - Who is this for, specifically?
    - What does success look like?
    - What are the real constraints (time, tech, resources)?
@@ -77,7 +77,7 @@ Create a task for each and complete in order:
    - **10x** — what would this look like at massive scale?
    - **Expert lens** — what would domain experts find obvious?
 
-   Push beyond what the user asked for. See `references/frameworks.md` for additional frameworks (SCAMPER, JTBD, First Principles, Pre-mortem, Analogous Inspiration). Pick the lens that fits — don't run every framework mechanically.
+   Push beyond what the user asked for. See [frameworks.md](references/frameworks.md) for additional frameworks (SCAMPER, JTBD, First Principles, Pre-mortem, Analogous Inspiration). Pick the lens that fits — don't run every framework mechanically.
 
 **If inside a codebase:** ground variations in what actually exists. Reference specific files and patterns.
 
@@ -86,7 +86,7 @@ Create a task for each and complete in order:
 After the user reacts to Phase 1, shift to convergent mode. Cadence becomes **single question at a time**.
 
 1. **Cluster** ideas that resonated into 2–3 meaningfully different directions.
-2. **Stress-test** each direction on three axes — see `references/refinement-criteria.md`:
+2. **Stress-test** each direction on three axes — see [refinement-criteria.md](references/refinement-criteria.md):
    - **User value** (painkiller vs. vitamin)
    - **Feasibility** (technical + resource + time-to-value)
    - **Differentiation** (new capability? 10x? new audience? new context? better UX?)
@@ -216,11 +216,11 @@ Direct, thoughtful, slightly provocative. A sharp thinking partner, not a facili
 
 ## References
 
-- `references/frameworks.md` — SCAMPER, HMW, First Principles, JTBD, Constraint-Based, Pre-mortem, Analogous Inspiration.
-- `references/refinement-criteria.md` — evaluation rubric for Phase 2.
-- `references/examples.md` — sample ideation sessions.
-- `../shared/philosophy.md`
-- `../shared/path-conventions.md`
-- `../shared/specscore-lint-rules.md`
-- `../shared/synchestra-events.md`
-- `../shared/question-cadence.md`
+- [frameworks.md](references/frameworks.md) — SCAMPER, HMW, First Principles, JTBD, Constraint-Based, Pre-mortem, Analogous Inspiration.
+- [refinement-criteria.md](references/refinement-criteria.md) — evaluation rubric for Phase 2.
+- [examples.md](references/examples.md) — sample ideation sessions.
+- [philosophy.md](../shared/philosophy.md) — shared tenets.
+- [path-conventions.md](../shared/path-conventions.md) — `spec/` vs `docs/` rules.
+- [specscore-lint-rules.md](../shared/specscore-lint-rules.md) — lint contract this skill assumes.
+- [synchestra-events.md](../shared/synchestra-events.md) — event payloads emitted by this skill.
+- [question-cadence.md](../shared/question-cadence.md) — when to batch vs single-question.
