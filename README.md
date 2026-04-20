@@ -14,6 +14,18 @@ Alongside it:
   - [**Rehearse**](https://rehearse.synchestra.io/) — the markdown-native test framework for SpecScore specs. Studio scaffolds Rehearse test stubs from acceptance criteria.
 - [**Synchestra**](https://synchestra.io/) — the engine that runs dispatched work. Headless; you never really "use" it directly.
 - [**Synchestra Hub**](https://hub.synchestra.io/) — the portfolio view. When you want to step back from this project and see all your projects and runners, that's Hub.
+- [**Synchestra AI Marketplace**](https://github.com/synchestra-io/ai-marketplace) — the plugin marketplace where Spec Studio and related Synchestra plugins are published for Claude Code and compatible clients.
+
+## Install
+
+Spec Studio is published on the [Synchestra AI Marketplace](https://github.com/synchestra-io/ai-marketplace). Install it into Claude Code in two steps:
+
+```
+/plugin marketplace add https://github.com/synchestra-io/ai-marketplace
+/plugin install spec-studio@synchestra-io
+```
+
+The first command registers the marketplace once; the second installs (and later updates) the plugin. Run `/plugin uninstall spec-studio` to remove it.
 
 ## What's in the box
 

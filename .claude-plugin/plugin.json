@@ -8,5 +8,23 @@
   "homepage": "https://github.com/synchestra-io/spec-studio",
   "repository": "https://github.com/synchestra-io/spec-studio",
   "license": "MIT",
+  "keywords": [
+    "spec-driven-development",
+    "specification-driven-development",
+    "sdd",
+    "spec",
+    "specscore",
+    "synchestra",
+    "ideation",
+    "brainstorming",
+    "prd",
+    "ai",
+    "ai-coding",
+    "claude-code",
+    "claude-code-plugin",
+    "claude-code-skill",
+    "engineering",
+    "development"
+  ],
   "commands": "./.claude/commands"
 }
