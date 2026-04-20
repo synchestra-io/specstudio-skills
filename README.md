@@ -21,7 +21,7 @@ Alongside it:
 Spec Studio is published on the [Synchestra AI Marketplace](https://github.com/synchestra-io/ai-marketplace). Install it into Claude Code in two steps:
 
 ```
-/plugin marketplace add https://github.com/synchestra-io/ai-marketplace
+/plugin marketplace add synchestra-io/ai-marketplace
 /plugin install spec-studio@synchestra-io
 ```
 
