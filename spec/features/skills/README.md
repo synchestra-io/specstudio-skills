@@ -2,7 +2,7 @@
 
 > [View in Synchestra Hub](https://hub.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills) — graph, discussions, approvals
 
-**Status:** Draft
+**Status:** In Progress
 
 ## Summary
 
