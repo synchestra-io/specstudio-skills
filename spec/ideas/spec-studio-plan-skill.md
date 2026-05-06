@@ -34,7 +34,7 @@ The MVP does not need a CLI scaffold — it can follow the same fallback direct-
 - **Plan as a dispatcher to Synchestra runners.** Rejected *for the MVP*. Dispatch matters eventually, but the planning format needs to stabilize before it's worth hooking into Hub. Premature coupling.
 
 ## MVP Scope
-A two-week spike: implement `spec-studio:plan` as a single skill folder under `skills/specscore-plan/`, producing a lint-clean `spec/plans/<slug>.md` from an approved Feature. Ship it, dogfood it on one real Feature in this repo, and stop. No Rehearse scaffolding, no dispatch, no editor UI. If the artifact isn't embarrassingly minimal on day one, it waited too long.
+A two-week spike: implement `spec-studio:plan` as a single skill folder under `skills/plan/`, producing a lint-clean `spec/plans/<slug>.md` from an approved Feature. Ship it, dogfood it on one real Feature in this repo, and stop. No Rehearse scaffolding, no dispatch, no editor UI. If the artifact isn't embarrassingly minimal on day one, it waited too long.
 
 ## Not Doing (and Why)
 - Automatic code generation from plan tasks — belongs in a future `build` skill, not `plan`.
