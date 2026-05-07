@@ -61,7 +61,7 @@ See [`skills/shared/philosophy.md`](./skills/shared/philosophy.md) for the full 
 | **SpecStudio** | Work on one project end-to-end, including spec↔code coherence — AI skills in your IDE today, web authoring UI on the way | **Open source** |
 | [Synchestra Hub](https://hub.synchestra.io/) | Portfolio + runtime UI for remote execution | Hosted |
 
-SpecStudio works standalone with Claude Code. Paired with Synchestra Hub, the same skills can dispatch long-running or sandboxed work to remote runners without leaving your editor.
+SpecStudio skills work standalone with Claude Code. Paired with Synchestra Hub, the same skills can dispatch long-running or sandboxed work to remote runners without leaving your editor.
 
 ## Repository family
 
