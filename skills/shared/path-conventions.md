@@ -31,6 +31,8 @@
 4. **Promotion links resolve inside `spec/`.** `promotes_to: [feat-checkout-v2]` resolves to `spec/features/checkout-v2/README.md` — a single tree move does not cross a boundary.
 5. **Never put typed artifacts in `docs/`.** If it has a schema, it belongs in `spec/`. If someone proposes `docs/features/`, that's a mistake.
 6. **Never put freeform prose in `spec/`.** Guides, tutorials, README-style narration → `docs/`. A `spec/features/foo/NOTES.md` that's just prose is a smell.
+7. **Skills auto-bootstrap their canonical sub-tree when missing.** When `spec-studio:ideate` is invoked in a project without `spec/ideas/`, the skill creates the directory and a lint-clean `spec/ideas/README.md` index before writing the first Idea. The same rule applies to `spec-studio:specify` for `spec/features/` and to `spec-studio:plan` for `spec/plans/`. Bootstrapping MUST be explicit — the skill tells the user it created the path; never silent.
+8. **Skills stage created files in git; never commit.** When a skill creates or first-writes any file under `spec/`, it MUST `git add` that path and report the staged paths to the user. The skill MUST NOT run `git commit` on the user's behalf — that decision stays with the user.
 
 ## Overrides of Upstream Skills
 

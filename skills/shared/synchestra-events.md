@@ -82,7 +82,7 @@ The change-context fields follow the same semantics and discipline as on `idea.d
 ## Events Emitted by `spec-studio:specify`
 
 ### `feature.specified`
-Fired after the Feature artifact is written, lint-clean, and the reviewer subagent returns `Approved`.
+Fired after the Feature artifact is written, lint-clean, and the reviewer subagent returns `Approved` — that is, the Feature is structurally and qualitatively ready for user review.
 
 ```yaml
 payload:
@@ -92,17 +92,38 @@ payload:
   ac_count: <int>
   rehearse_stubs_generated: <bool>
   rehearse_skip_reason: <string | null>
+  changed_sections: [<H2 section name>, ...] | null   # null on first emission (no baseline)
+  previous_revision: <git SHA> | null                  # null on first emission
+  change_summary: <string ≤2 sentences> | null         # null on first emission
 ```
 
+The change-context fields (`changed_sections`, `previous_revision`, `change_summary`) follow the same semantics and discipline as on `idea.drafted` / `idea.updated` (see above). They are `null` on the first `feature.specified` emission for a Feature (no prior revision to diff against). On every subsequent emission during reviewer iteration, they are present and non-null.
+
 ### `feature.approved`
-Fired after the user explicitly approves the written Feature.
+Fired exactly once, after the user explicitly approves the written Feature and the status transition Draft → In Progress completes successfully.
 
 ```yaml
 payload:
   slug: <slug>
+  changed_sections: [<H2 section name>, ...]   # always non-null (the approval action implies a baseline)
+  previous_revision: <git SHA>                  # always non-null
+  change_summary: <string ≤2 sentences>         # always non-null
 ```
 
-**Consumer:** Synchestra typically triggers `writing-plans` next.
+The change-context fields are never `null` here — the prior revision is the last `feature.specified` emission.
+
+### `feature.updated`
+Fired after every successful `specscore lint` pass following a write or edit, while the Feature's front-matter `status` is `In Progress` or `Stable`. Distinguishes post-approval iteration from pre-approval drafting; consumers that watch only for material changes to approved Features subscribe here rather than to `feature.specified`.
+
+```yaml
+payload:
+  slug: <slug>
+  changed_sections: [<H2 section name>, ...]   # always non-null
+  previous_revision: <git SHA>                  # always non-null
+  change_summary: <string ≤2 sentences>         # always non-null
+```
+
+**Consumer:** Synchestra typically triggers `writing-plans` after `feature.approved`, and notifies downstream consumers (Plans, dependent Features, Hub) on `feature.updated`.
 
 ## Events Emitted by Synchestra (consumed by skills)
 
@@ -137,4 +158,5 @@ payload:
 | `idea.updated` | `spec-studio:ideate` | Every successful lint pass while `status: Approved` |
 | `idea.specified` | synchestra | Feature(s) created from an approved Idea |
 | `feature.specified` | `spec-studio:specify` | Reviewer-approved, lint-clean Feature write |
-| `feature.approved` | `spec-studio:specify` | User approves the written Feature |
+| `feature.approved` | `spec-studio:specify` | User approves the written Feature (exactly once) |
+| `feature.updated` | `spec-studio:specify` | Every successful lint pass while `status` ∈ {In Progress, Stable} after approval |
