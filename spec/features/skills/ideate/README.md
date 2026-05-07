@@ -1,12 +1,12 @@
 # Feature: Ideate Skill
 
-> [View in Spec Studio](https://specstudio.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fideate) — graph, discussions, approvals
+> [View in SpecStudio](https://specstudio.synchestra.io/project/features?id=specstudio-skills@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fideate) — graph, discussions, approvals
 
 **Status:** Approved
 
 ## Summary
 
-The `spec-studio:ideate` skill refines raw, vague concepts into lint-clean SpecScore Idea artifacts through a three-phase dialogue (Understand & Expand, Evaluate & Converge, Crystallize). Its output (`spec/ideas/<slug>.md`) is the gating input for `spec-studio:specify` and the only sanctioned way to produce a SpecScore Idea inside Spec Studio. Implementation lives at [`skills/ideate/`](../../../../skills/ideate/).
+The `specstudio:ideate` skill refines raw, vague concepts into lint-clean SpecScore Idea artifacts through a three-phase dialogue (Understand & Expand, Evaluate & Converge, Crystallize). Its output (`spec/ideas/<slug>.md`) is the gating input for `specstudio:specify` and the only sanctioned way to produce a SpecScore Idea inside SpecStudio. Implementation lives at [`skills/ideate/`](../../../../skills/ideate/).
 
 ## Problem
 
@@ -26,15 +26,15 @@ The skill MUST respond to the triggers `ideate`, `/ideate`, "refine this idea", 
 
 #### REQ: skip-when-clear-intent
 
-The skill MUST NOT proceed when the user already has a clear, high-conviction feature to specify. In that case it MUST hand off to `spec-studio:specify` and explain why. The decision criterion is whether the user can articulate the problem, the recommended direction, and an explicit Not-Doing boundary in one short statement.
+The skill MUST NOT proceed when the user already has a clear, high-conviction feature to specify. In that case it MUST hand off to `specstudio:specify` and explain why. The decision criterion is whether the user can articulate the problem, the recommended direction, and an explicit Not-Doing boundary in one short statement.
 
 ### Hard gate
 
-The skill is gated downstream — once invoked, it must produce a complete, lint-clean, user-approved Idea before any other Spec Studio skill can run.
+The skill is gated downstream — once invoked, it must produce a complete, lint-clean, user-approved Idea before any other SpecStudio skill can run.
 
 #### REQ: hard-gate
 
-The skill MUST NOT invoke `spec-studio:specify`, `writing-plans`, or any implementation skill until ALL THREE conditions hold:
+The skill MUST NOT invoke `specstudio:specify`, `writing-plans`, or any implementation skill until ALL THREE conditions hold:
 
 1. An Idea artifact exists at `spec/ideas/<slug>.md`.
 2. `specscore lint spec/ideas/<slug>.md` exits zero.
@@ -96,7 +96,7 @@ When the `specscore` CLI is NOT on PATH, the skill MUST fall back to a direct fi
 
 #### REQ: schema-equivalence-cli-fallback
 
-CLI and fallback paths MUST produce **schema-equivalent** artifacts: identical front-matter fields, identical section headings, identical required content. They MAY differ in cosmetic ways (whitespace, blank-line counts, comment style, default ordering of optional fields). The contract is that downstream consumers (`specscore lint`, `spec-studio:specify`, human readers) cannot tell which path produced the artifact based on its functional content.
+CLI and fallback paths MUST produce **schema-equivalent** artifacts: identical front-matter fields, identical section headings, identical required content. They MAY differ in cosmetic ways (whitespace, blank-line counts, comment style, default ordering of optional fields). The contract is that downstream consumers (`specscore lint`, `specstudio:specify`, human readers) cannot tell which path produced the artifact based on its functional content.
 
 ### Required artifact content
 
@@ -193,7 +193,7 @@ The `change_summary` field MUST describe the change in **factual, observable ter
 
 ### Promotion boundary
 
-Promotion to a Feature is the responsibility of `spec-studio:specify` and Synchestra tooling, not of `ideate`.
+Promotion to a Feature is the responsibility of `specstudio:specify` and Synchestra tooling, not of `ideate`.
 
 #### REQ: no-manual-promotes-to
 
@@ -201,7 +201,7 @@ The skill MUST NOT manually edit the `promotes_to` front-matter field. That fiel
 
 #### REQ: promotion-out-of-scope
 
-The skill MUST NOT scaffold, write, or modify SpecScore Features. When a user requests promotion immediately after approval, the skill MUST hand off to `spec-studio:specify`.
+The skill MUST NOT scaffold, write, or modify SpecScore Features. When a user requests promotion immediately after approval, the skill MUST hand off to `specstudio:specify`.
 
 ### Tone
 
@@ -266,13 +266,13 @@ On lint failure after a write/edit, the skill runs `specscore lint --fix` exactl
 
 **Requirements:** ideate#req:skip-when-clear-intent
 
-When the user can articulate the problem, recommended direction, and Not-Doing boundary up front, the skill hands off to `spec-studio:specify` without running the three-phase dialogue. The hand-off is explicit, not silent.
+When the user can articulate the problem, recommended direction, and Not-Doing boundary up front, the skill hands off to `specstudio:specify` without running the three-phase dialogue. The hand-off is explicit, not silent.
 
 ### AC: promotion-boundary-held
 
 **Requirements:** ideate#req:no-manual-promotes-to, ideate#req:promotion-out-of-scope
 
-The skill never edits `promotes_to`, never scaffolds a Feature, and never modifies an existing Feature. Promotion requests are routed to `spec-studio:specify`.
+The skill never edits `promotes_to`, never scaffolds a Feature, and never modifies an existing Feature. Promotion requests are routed to `specstudio:specify`.
 
 ## Outstanding Questions
 

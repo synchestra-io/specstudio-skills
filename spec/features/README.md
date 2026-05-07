@@ -1,8 +1,8 @@
-# Spec Studio Features
+# SpecStudio Features
 
-> [View in Spec Studio](https://specstudio.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures) — graph, discussions, approvals
+> [View in SpecStudio](https://specstudio.synchestra.io/project/features?id=specstudio-skills@synchestra-io@github.com&path=spec%2Ffeatures) — graph, discussions, approvals
 
-Feature specifications for the Spec Studio plugin. This index lists every top-level SpecScore Feature in this repository.
+Feature specifications for the SpecStudio plugin. This index lists every top-level SpecScore Feature in this repository.
 
 ## Contents
 
@@ -12,7 +12,7 @@ Feature specifications for the Spec Studio plugin. This index lists every top-le
 
 ### skills
 
-The `skills` feature groups one sub-feature per Claude Code skill in the plugin. Today it covers `ideate`, `specify`, `plan`, `build`, `verify`, `recap`, `review`, and `ship` — all `Draft` until each is refined via `spec-studio:ideate` and promoted via `spec-studio:specify`. Implementation maturity (which skills actually ship today) is tracked separately in [`skills/README.md`](../../skills/README.md).
+The `skills` feature groups one sub-feature per Claude Code skill in the plugin. Today it covers `ideate`, `specify`, `plan`, `build`, `verify`, `recap`, `review`, and `ship` — all `Draft` until each is refined via `specstudio:ideate` and promoted via `specstudio:specify`. Implementation maturity (which skills actually ship today) is tracked separately in [`skills/README.md`](../../skills/README.md).
 
 ## Outstanding Questions
 

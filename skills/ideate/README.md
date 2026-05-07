@@ -1,10 +1,10 @@
 # `ideate` skill
 
-The `spec-studio:ideate` Claude Code skill — refines raw, vague concepts into lint-clean SpecScore Idea artifacts through structured divergent and convergent thinking.
+The `specstudio:ideate` Claude Code skill — refines raw, vague concepts into lint-clean SpecScore Idea artifacts through structured divergent and convergent thinking.
 
 - **Skill manifest:** [`SKILL.md`](./SKILL.md) — the canonical, machine-readable skill definition.
 - **Feature specification:** [`spec/features/skills/ideate/`](../../spec/features/skills/ideate/README.md) — the SpecScore Feature this skill implements.
-- **Skills index:** [`../README.md`](../README.md) — all Spec Studio skills with status and lifecycle position.
+- **Skills index:** [`../README.md`](../README.md) — all SpecStudio skills with status and lifecycle position.
 
 ## What it does
 

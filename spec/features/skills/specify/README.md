@@ -1,12 +1,12 @@
 # Feature: Specify Skill
 
-> [View in Spec Studio](https://specstudio.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fspecify) — graph, discussions, approvals
+> [View in SpecStudio](https://specstudio.synchestra.io/project/features?id=specstudio-skills@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fspecify) — graph, discussions, approvals
 
 **Status:** Approved
 
 ## Summary
 
-The `spec-studio:specify` skill turns an approved SpecScore Idea — or a clear buildable intent — into a lint-clean SpecScore Feature with requirements and `Given / When / Then` acceptance criteria. Its output (`spec/features/<slug>/`) is the gating input for `spec-studio:plan` and any implementation skill. Unlike `ideate` (single-file artifact), `specify` produces a multi-file directory with a README, one requirement per file, optional Rehearse stubs, and optional assets. Implementation lives at [`skills/specify/`](../../../../skills/specify/).
+The `specstudio:specify` skill turns an approved SpecScore Idea — or a clear buildable intent — into a lint-clean SpecScore Feature with requirements and `Given / When / Then` acceptance criteria. Its output (`spec/features/<slug>/`) is the gating input for `specstudio:plan` and any implementation skill. Unlike `ideate` (single-file artifact), `specify` produces a multi-file directory with a README, one requirement per file, optional Rehearse stubs, and optional assets. Implementation lives at [`skills/specify/`](../../../../skills/specify/).
 
 ## Problem
 
@@ -30,11 +30,11 @@ The skill MUST accept two kinds of input: (a) an approved Idea (path to `spec/id
 
 #### REQ: clear-intent-criterion
 
-For the no-Idea path, "clear buildable intent" is satisfied when the user can articulate the problem, the recommended direction, and an explicit Not-Doing boundary in one short statement. If the intent fails this criterion, the skill MUST recommend running `spec-studio:ideate` first instead of producing a low-quality Feature.
+For the no-Idea path, "clear buildable intent" is satisfied when the user can articulate the problem, the recommended direction, and an explicit Not-Doing boundary in one short statement. If the intent fails this criterion, the skill MUST recommend running `specstudio:ideate` first instead of producing a low-quality Feature.
 
 ### Hard gate
 
-The skill enforces a hard gate downstream — once invoked, it must produce a complete, lint-clean, reviewer-approved, user-approved Feature before any other Spec Studio skill can run.
+The skill enforces a hard gate downstream — once invoked, it must produce a complete, lint-clean, reviewer-approved, user-approved Feature before any other SpecStudio skill can run.
 
 #### REQ: hard-gate
 
@@ -178,7 +178,7 @@ After the reviewer subagent returns `Approved`, the skill MUST present the Featu
 
 #### REQ: approval-explicit-phrase
 
-The skill MUST recognize the same explicit-approval phrase set as `spec-studio:ideate`: English `approve`, `approved`, `accept`, `accepted`, `lgtm`, plus their direct semantic equivalents in any language the user is communicating in (e.g., `aprobar`, `承認`, `одобрено`, `批准`). The criterion is semantic — the phrase must function as a verb form meaning "I give explicit approval" in the source language. On detection of any qualifying phrase as a standalone or dominant response, the skill MUST proceed directly to the status transition.
+The skill MUST recognize the same explicit-approval phrase set as `specstudio:ideate`: English `approve`, `approved`, `accept`, `accepted`, `lgtm`, plus their direct semantic equivalents in any language the user is communicating in (e.g., `aprobar`, `承認`, `одобрено`, `批准`). The criterion is semantic — the phrase must function as a verb form meaning "I give explicit approval" in the source language. On detection of any qualifying phrase as a standalone or dominant response, the skill MUST proceed directly to the status transition.
 
 #### REQ: approval-vague-confirmation
 

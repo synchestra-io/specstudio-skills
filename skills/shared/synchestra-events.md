@@ -2,7 +2,7 @@
 
 **Status:** Contract
 
-Events are how SDD skills hand work off to Synchestra and vice-versa. Both `spec-studio:ideate` and `spec-studio:specify` emit events after successful artifact writes. Synchestra can also trigger skills in response to events.
+Events are how SDD skills hand work off to Synchestra and vice-versa. Both `specstudio:ideate` and `specstudio:specify` emit events after successful artifact writes. Synchestra can also trigger skills in response to events.
 
 ## Event Envelope (common fields)
 
@@ -14,7 +14,7 @@ version: 1
 timestamp: <ISO-8601>
 actor:
   kind: skill | user | synchestra | external
-  id: <e.g., "skill:spec-studio:ideate", "user:<username>", "agent:<agent-id>">
+  id: <e.g., "skill:specstudio:ideate", "user:<username>", "agent:<agent-id>">
 artifact:
   type: idea | feature | plan
   id: <stable SpecScore ID>
@@ -38,7 +38,7 @@ This is a single-source-of-truth choice: the skill is a faithful **event source*
 
 **For consumers that want to debounce:** use the envelope `timestamp` to suppress events fired within your chosen window. The envelope's `artifact.id` is stable across emissions so coalescing per artifact is straightforward. The same approach works for any `*.updated` event in this vocabulary.
 
-## Events Emitted by `spec-studio:ideate`
+## Events Emitted by `specstudio:ideate`
 
 ### `idea.drafted`
 Fired after every successful `specscore lint` pass following a write or edit, while the Idea's front-matter `status` is `Draft`. The first emission carries the same event name as subsequent ones — Synchestra dedupes by event uuid.
@@ -67,7 +67,7 @@ payload:
   recommended_direction_summary: <first paragraph>
 ```
 
-**Consumer:** Synchestra may react by scheduling `spec-studio:specify` (after user confirmation) or by notifying watchers.
+**Consumer:** Synchestra may react by scheduling `specstudio:specify` (after user confirmation) or by notifying watchers.
 
 ### `idea.updated`
 Fired after every successful `specscore lint` pass following a write or edit, while the Idea's front-matter `status` is `Approved`. Distinguishes post-approval iteration from pre-approval drafting; consumers that watch only for material changes to approved Ideas subscribe here rather than to `idea.drafted`.
@@ -87,7 +87,7 @@ The change-context fields follow the same semantics and discipline as on `idea.d
 
 **Consumer:** Synchestra may notify Features that declare this Idea as a `Source Ideas` entry, so downstream specs can be re-reconciled. Consumers can filter on `changed_sections` to react only when load-bearing sections (e.g., `Recommended Direction`) change.
 
-## Events Emitted by `spec-studio:specify`
+## Events Emitted by `specstudio:specify`
 
 ### `feature.specified`
 Fired after the Feature artifact is written, lint-clean, and the reviewer subagent returns `Approved` — that is, the Feature is structurally and qualitatively ready for user review.
@@ -176,11 +176,11 @@ This is a stricter event than the previous `idea.specified` (which fired on firs
 
 | Event | Emitter | Trigger |
 |---|---|---|
-| `idea.drafted` | `spec-studio:ideate` | Every successful lint pass while `status: Draft` |
-| `idea.approved` | `spec-studio:ideate` | User approves Recommended Direction (exactly once) |
-| `idea.updated` | `spec-studio:ideate` | Every successful lint pass while `status: Approved` |
+| `idea.drafted` | `specstudio:ideate` | Every successful lint pass while `status: Draft` |
+| `idea.approved` | `specstudio:ideate` | User approves Recommended Direction (exactly once) |
+| `idea.updated` | `specstudio:ideate` | Every successful lint pass while `status: Approved` |
 | `idea.implementing` | synchestra | First Feature created with this Idea in `**Source Ideas:**` (Approved → Implementing) |
 | `idea.specified` | synchestra | Every Feature referencing this Idea reaches `Status: Stable` (Implementing → Specified) |
-| `feature.specified` | `spec-studio:specify` | Reviewer-approved, lint-clean Feature write |
-| `feature.approved` | `spec-studio:specify` | User approves the written Feature (exactly once) |
-| `feature.updated` | `spec-studio:specify` | Every successful lint pass while `status` ∈ {Approved, Implementing, Stable} after approval |
+| `feature.specified` | `specstudio:specify` | Reviewer-approved, lint-clean Feature write |
+| `feature.approved` | `specstudio:specify` | User approves the written Feature (exactly once) |
+| `feature.updated` | `specstudio:specify` | Every successful lint pass while `status` ∈ {Approved, Implementing, Stable} after approval |

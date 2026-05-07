@@ -1,12 +1,12 @@
 # Feature: Verify Skill
 
-> [View in Spec Studio](https://specstudio.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fverify) — graph, discussions, approvals
+> [View in SpecStudio](https://specstudio.synchestra.io/project/features?id=specstudio-skills@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fverify) — graph, discussions, approvals
 
 **Status:** Draft
 
 ## Summary
 
-The `verify` skill is intended to run the Rehearse test scenarios attached to a Feature and report per-AC pass/fail coverage. The skill is not yet defined — no Idea has been written, and the scope below is a placeholder to be refined via `spec-studio:ideate`.
+The `verify` skill is intended to run the Rehearse test scenarios attached to a Feature and report per-AC pass/fail coverage. The skill is not yet defined — no Idea has been written, and the scope below is a placeholder to be refined via `specstudio:ideate`.
 
 ## Problem
 
@@ -18,7 +18,7 @@ Without that step, `recap`, `review`, and `ship` cannot be honestly gated on tes
 
 The skill is *intended* to: load a Feature's `_tests/` scenarios (or the equivalent Rehearse layout), execute them, and emit a structured report listing each AC ID with its pass/fail status, evidence (test output, screenshots, etc.), and any unmapped scenarios or unmapped ACs. The report should be machine-readable enough that downstream skills (`recap`, `review`, `ship`) can consume it as a gate.
 
-This is intent, not contract. The actual scope, output format, gate semantics, and Rehearse coupling need to be defined through `spec-studio:ideate`.
+This is intent, not contract. The actual scope, output format, gate semantics, and Rehearse coupling need to be defined through `specstudio:ideate`.
 
 ## Acceptance Criteria
 

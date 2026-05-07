@@ -1,12 +1,12 @@
 # Feature: Ship Skill
 
-> [View in Spec Studio](https://specstudio.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fship) — graph, discussions, approvals
+> [View in SpecStudio](https://specstudio.synchestra.io/project/features?id=specstudio-skills@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fship) — graph, discussions, approvals
 
 **Status:** Draft
 
 ## Summary
 
-The `ship` skill is intended to run the pre-launch checklist for a Feature, gated on `verify` and `review` having passed, and to coordinate the deploy or release. The skill is not yet defined — no Idea has been written, and the scope below is a placeholder to be refined via `spec-studio:ideate`.
+The `ship` skill is intended to run the pre-launch checklist for a Feature, gated on `verify` and `review` having passed, and to coordinate the deploy or release. The skill is not yet defined — no Idea has been written, and the scope below is a placeholder to be refined via `specstudio:ideate`.
 
 ## Problem
 
@@ -18,7 +18,7 @@ A spec-aware `ship` skill exists to enforce those gates before any deploy action
 
 The skill is *intended* to: load the Feature, the most recent `verify` report, the `review` findings, and the `recap` artifact, then run a structured pre-launch checklist. Hard gates: all ACs verified green, all blocker-severity review findings resolved, recap accepted. Soft gates: monitoring, rollback plan, feature-flag status. On all gates passing, the skill proceeds with (or hands off to) the deploy mechanics.
 
-This is intent, not contract. The actual scope, gate definitions, and deploy-coordination semantics need to be defined through `spec-studio:ideate`.
+This is intent, not contract. The actual scope, gate definitions, and deploy-coordination semantics need to be defined through `specstudio:ideate`.
 
 ## Acceptance Criteria
 

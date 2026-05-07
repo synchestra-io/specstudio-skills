@@ -1,9 +1,9 @@
 # Rehearse Test-Stub Heuristic
 
 **Status:** Draft (v0.1) — refine with real Feature examples
-**Used by:** `spec-studio:specify` (checklist step: Rehearse stub generation)
+**Used by:** `specstudio:specify` (checklist step: Rehearse stub generation)
 
-Rehearse test-stub generation is **optional**. `spec-studio:specify` decides whether to scaffold stubs based on this heuristic. The user can always override.
+Rehearse test-stub generation is **optional**. `specstudio:specify` decides whether to scaffold stubs based on this heuristic. The user can always override.
 
 ## The Decision
 

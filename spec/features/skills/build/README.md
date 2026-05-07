@@ -1,16 +1,16 @@
 # Feature: Build Skill
 
-> [View in Spec Studio](https://specstudio.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fbuild) — graph, discussions, approvals
+> [View in SpecStudio](https://specstudio.synchestra.io/project/features?id=specstudio-skills@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fbuild) — graph, discussions, approvals
 
 **Status:** Draft
 
 ## Summary
 
-The `build` skill is intended to consume a lint-clean Plan and produce code one task at a time, with each commit traceable to the AC IDs the task claims to satisfy. The skill is not yet defined — no Idea has been written, and the scope below is a placeholder to be refined via `spec-studio:ideate`.
+The `build` skill is intended to consume a lint-clean Plan and produce code one task at a time, with each commit traceable to the AC IDs the task claims to satisfy. The skill is not yet defined — no Idea has been written, and the scope below is a placeholder to be refined via `specstudio:ideate`.
 
 ## Problem
 
-`spec-studio:plan` (when implemented) will produce a Plan whose tasks reference specific AC IDs. The next step — actually writing the code that satisfies those ACs — is currently done with general-purpose implementation skills that have no awareness of the AC linkage. As a result, commits don't trace back to acceptance criteria, partial implementations are hard to detect, and the spec↔code coherence loop breaks at the implementation step.
+`specstudio:plan` (when implemented) will produce a Plan whose tasks reference specific AC IDs. The next step — actually writing the code that satisfies those ACs — is currently done with general-purpose implementation skills that have no awareness of the AC linkage. As a result, commits don't trace back to acceptance criteria, partial implementations are hard to detect, and the spec↔code coherence loop breaks at the implementation step.
 
 A `build` skill with explicit AC awareness is meant to close that loop, but its precise contract has not been designed.
 
@@ -18,7 +18,7 @@ A `build` skill with explicit AC awareness is meant to close that loop, but its 
 
 The skill is *intended* to: consume one task from a Plan at a time, produce a focused commit (or series of commits) that satisfies the task's referenced ACs, run the corresponding Rehearse scenarios for those ACs, and update the Plan's task status. Each commit message should reference the satisfied AC IDs to preserve the traceability chain.
 
-This is intent, not contract. The actual scope, gates, inputs/outputs, and AC-mapping rules need to be defined through `spec-studio:ideate`.
+This is intent, not contract. The actual scope, gates, inputs/outputs, and AC-mapping rules need to be defined through `specstudio:ideate`.
 
 ## Acceptance Criteria
 

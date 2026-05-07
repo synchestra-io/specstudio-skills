@@ -14,7 +14,7 @@ AND the skill writes to `spec/ideas/my-idea.md` instead
 GIVEN an Idea artifact has been mistakenly committed to `docs/ideas/my-idea.md`
 WHEN `specscore lint` runs against the project tree
 THEN lint reports rule `U-007` (file location matches canonical path for type) as an error
-AND `spec-studio:specify` cannot consume the misplaced artifact
+AND `specstudio:specify` cannot consume the misplaced artifact
 
 ---
 *This document follows the https://specscore.md/scenario-specification*

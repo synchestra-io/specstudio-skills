@@ -9,7 +9,7 @@ WHEN the user (or an upstream orchestrator) asks the skill to transition next
 THEN the skill MUST transition to `writing-plans`
 AND the skill MUST NOT invoke `frontend-design`, `mcp-builder`, or any other implementation skill directly
 
-GIVEN the user explicitly requests `spec-studio:specify` invoke `frontend-design` immediately after approval
+GIVEN the user explicitly requests `specstudio:specify` invoke `frontend-design` immediately after approval
 WHEN the skill processes the request
 THEN the skill refuses
 AND the skill explains that `writing-plans` is the only sanctioned next step

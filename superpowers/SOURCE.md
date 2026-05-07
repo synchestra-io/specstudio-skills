@@ -11,17 +11,17 @@ same day).
 ## Why this lives here
 
 `synchestra-superpowers` was planned as a superpowers clone adapted for
-the Synchestra ecosystem. Its direction was superseded by this Spec
-Studio plugin — see
+the Synchestra ecosystem. Its direction was superseded by this
+SpecStudio plugin — see
 [`synchestra-marketing` / ecosystem / VISION.md](https://github.com/synchestra-io/synchestra-marketing/blob/main/ecosystem/VISION.md)
 and the
-[Spec Studio revisit resolution](https://github.com/synchestra-io/synchestra-marketing/blob/main/decisions/2026-04-19-spec-studio-revisit-resolution.md).
+[SpecStudio revisit resolution](https://github.com/synchestra-io/synchestra-marketing/blob/main/decisions/2026-04-19-spec-studio-revisit-resolution.md).
 
 The content is imported here for reuse, reference, and harvesting into
-Spec Studio's own skills.
+SpecStudio's own skills.
 
 ## Caveats
 
 - **Git history is not preserved** — this was a plain file import, not a subtree merge. The 17 local-only commits that existed on the source `synchestra` branch no longer exist anywhere.
 - **Nested `.github/workflows/` do not run.** GitHub Actions only fire from repo-root `.github/`, so the workflow files under this directory are inert content, not active automation.
-- **Nested `.gitignore` / `.gitattributes`** apply only within this subdirectory (git honors nested ignore files); they do not affect the rest of Spec Studio.
+- **Nested `.gitignore` / `.gitattributes`** apply only within this subdirectory (git honors nested ignore files); they do not affect the rest of SpecStudio.

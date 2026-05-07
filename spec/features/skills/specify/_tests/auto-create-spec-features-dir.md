@@ -5,7 +5,7 @@
 ## Steps
 
 GIVEN a project with no `spec/features/` directory
-AND the user invokes `spec-studio:specify` with a clear buildable intent
+AND the user invokes `specstudio:specify` with a clear buildable intent
 WHEN the skill is about to write the first Feature
 THEN the skill creates the directory `spec/features/`
 AND the skill creates `spec/features/README.md` as a lint-clean Index artifact (`type: index`, empty Contents table, "None at this time." Outstanding Questions)

@@ -1,12 +1,12 @@
 # Feature: Review Skill
 
-> [View in Spec Studio](https://specstudio.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Freview) — graph, discussions, approvals
+> [View in SpecStudio](https://specstudio.synchestra.io/project/features?id=specstudio-skills@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Freview) — graph, discussions, approvals
 
 **Status:** Draft
 
 ## Summary
 
-The `review` skill is intended to perform multi-axis code review (correctness, readability, architecture, security, performance) of an implementation against the Feature it claims to satisfy. The skill is not yet defined — no Idea has been written, and the scope below is a placeholder to be refined via `spec-studio:ideate`.
+The `review` skill is intended to perform multi-axis code review (correctness, readability, architecture, security, performance) of an implementation against the Feature it claims to satisfy. The skill is not yet defined — no Idea has been written, and the scope below is a placeholder to be refined via `specstudio:ideate`.
 
 ## Problem
 
@@ -18,7 +18,7 @@ A spec-aware `review` skill exists to evaluate code against its source Feature f
 
 The skill is *intended* to: load the Feature, the Plan, the commits, the `verify` report, and the `recap` artifact, then perform a structured review with the Feature as the primary reference point. Findings should be categorized by axis (correctness, readability, architecture, security, performance) and by severity, with each finding referencing either an AC ID or a general principle.
 
-This is intent, not contract. The actual scope, axes, severity scale, and gate semantics need to be defined through `spec-studio:ideate`.
+This is intent, not contract. The actual scope, axes, severity scale, and gate semantics need to be defined through `specstudio:ideate`.
 
 ## Acceptance Criteria
 

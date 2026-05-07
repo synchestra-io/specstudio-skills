@@ -4,21 +4,21 @@
 
 ## Steps
 
-GIVEN the user has invoked `spec-studio:ideate` and the skill has written `spec/ideas/my-idea.md`
+GIVEN the user has invoked `specstudio:ideate` and the skill has written `spec/ideas/my-idea.md`
 AND `specscore lint spec/ideas/my-idea.md` exits non-zero (an Idea-specific rule fails)
-WHEN the skill or the user attempts to invoke `spec-studio:specify` against the same Idea
-THEN the skill refuses to invoke `spec-studio:specify`
+WHEN the skill or the user attempts to invoke `specstudio:specify` against the same Idea
+THEN the skill refuses to invoke `specstudio:specify`
 AND the skill surfaces the specific lint violation to the user
 AND no `idea.approved` event is emitted
 
 GIVEN `specscore lint` now passes for the same Idea
 AND the user has NOT yet approved the Recommended Direction
-WHEN the skill or the user attempts to invoke `spec-studio:specify`
-THEN the skill still refuses to invoke `spec-studio:specify`
+WHEN the skill or the user attempts to invoke `specstudio:specify`
+THEN the skill still refuses to invoke `specstudio:specify`
 AND the skill prompts the user for explicit approval
 
 GIVEN lint passes AND the user has explicitly approved the Recommended Direction
-WHEN the user invokes `spec-studio:specify`
+WHEN the user invokes `specstudio:specify`
 THEN the hand-off proceeds
 
 ---

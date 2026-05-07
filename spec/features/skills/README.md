@@ -1,12 +1,12 @@
 # Feature: Skills
 
-> [View in Spec Studio](https://specstudio.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills) — graph, discussions, approvals
+> [View in SpecStudio](https://specstudio.synchestra.io/project/features?id=specstudio-skills@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills) — graph, discussions, approvals
 
 **Status:** Approved
 
 ## Summary
 
-Spec Studio ships as a set of Claude Code skills, one per phase of the spec-driven development lifecycle. This feature is the umbrella for the per-skill sub-features that specify each skill's purpose, gates, inputs, outputs, and place in the lifecycle.
+SpecStudio ships as a set of Claude Code skills, one per phase of the spec-driven development lifecycle. This feature is the umbrella for the per-skill sub-features that specify each skill's purpose, gates, inputs, outputs, and place in the lifecycle.
 
 ## Contents
 
@@ -23,15 +23,15 @@ Spec Studio ships as a set of Claude Code skills, one per phase of the spec-driv
 
 ### ideate
 
-The `spec-studio:ideate` skill produces a lint-clean `spec/ideas/<slug>.md` through structured divergent and convergent thinking. It is the entry point for any non-trivial concept and gates `specify` until the Idea is approved by the user.
+The `specstudio:ideate` skill produces a lint-clean `spec/ideas/<slug>.md` through structured divergent and convergent thinking. It is the entry point for any non-trivial concept and gates `specify` until the Idea is approved by the user.
 
 ### specify
 
-The `spec-studio:specify` skill produces a lint-clean SpecScore Feature at `spec/features/<slug>/`. It accepts either an approved Idea or a clear buildable intent — `ideate` is skippable when the problem and scope are already obvious.
+The `specstudio:specify` skill produces a lint-clean SpecScore Feature at `spec/features/<slug>/`. It accepts either an approved Idea or a clear buildable intent — `ideate` is skippable when the problem and scope are already obvious.
 
 ### plan
 
-The `spec-studio:plan` skill is intended to produce a lint-clean `spec/plans/<slug>.md` of ordered tasks where each task references one or more AC IDs from its source Feature. Currently scoped as an Approved Idea (`spec-studio-plan-skill`), not yet implemented.
+The `specstudio:plan` skill is intended to produce a lint-clean `spec/plans/<slug>.md` of ordered tasks where each task references one or more AC IDs from its source Feature. Currently scoped as an Approved Idea (`specstudio-plan-skill`), not yet implemented.
 
 ### build
 
@@ -55,7 +55,7 @@ The `ship` skill is intended to run the pre-launch checklist, gated on `verify` 
 
 ## Problem
 
-Spec Studio's value proposition is spec↔code coherence: every skill produces an artifact that the next skill consumes, gated by `specscore lint`. For that loop to be machine-verifiable, each skill needs a typed Feature spec — not just a SKILL.md manifest and a roadmap line in the repo README. Without per-skill Features:
+SpecStudio's value proposition is spec↔code coherence: every skill produces an artifact that the next skill consumes, gated by `specscore lint`. For that loop to be machine-verifiable, each skill needs a typed Feature spec — not just a SKILL.md manifest and a roadmap line in the repo README. Without per-skill Features:
 
 - Tooling cannot validate that a skill's behavior matches its specification.
 - Contributors cannot tell where a skill is in its lifecycle (Draft / In Progress / Stable / Deprecated).

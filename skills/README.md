@@ -1,6 +1,6 @@
-# Spec Studio Skills
+# SpecStudio Skills
 
-The Claude Code skills that make up Spec Studio. Each skill owns one phase of the spec-driven development lifecycle and gates the next on a lint-clean SpecScore artifact.
+The Claude Code skills that make up SpecStudio. Each skill owns one phase of the spec-driven development lifecycle and gates the next on a lint-clean SpecScore artifact.
 
 For the product overview and install instructions, see the [repo README](../README.md). For the design philosophy these skills share, see [`shared/philosophy.md`](./shared/philosophy.md).
 
@@ -26,7 +26,7 @@ Each phase consumes the previous phase's lint-clean artifact and gates the next.
 |---|---|---|
 | [`ideate`](./ideate/SKILL.md) | Shipped | Refine raw ideas into lint-clean SpecScore Idea artifacts. |
 | [`specify`](./specify/SKILL.md) | Shipped | Turn an approved Idea into a lint-clean SpecScore Feature with G/W/T acceptance criteria. |
-| [`plan`](../spec/ideas/spec-studio-plan-skill.md) | Defined | Turn an approved Feature into an ordered, AC-mapped Plan artifact. |
+| [`plan`](../spec/ideas/specstudio-plan-skill.md) | Defined | Turn an approved Feature into an ordered, AC-mapped Plan artifact. |
 | `build` | Roadmap | Implement Plan tasks one at a time, gated on AC coverage. |
 | `verify` | Roadmap | Run Rehearse tests against acceptance criteria; report coverage. |
 | `recap` | Roadmap | Summarize what was built against what was specified; surface drift. |
@@ -68,8 +68,8 @@ Turns an approved Feature into an ordered set of tasks where each task reference
 - **Planned output:** lint-clean `spec/plans/<slug>.md` of ordered, AC-mapped tasks.
 - **Planned gate:** mirrors `ideate` and `specify` — lint-clean output and user approval before any `build` or implementation skill can run.
 - **Status:** Idea approved 2026-04-20. Not yet promoted to a Feature.
-- **Idea:** [`spec/ideas/spec-studio-plan-skill.md`](../spec/ideas/spec-studio-plan-skill.md)
-- **Next step:** run `spec-studio:specify` on the Idea to produce a Feature, then implement.
+- **Idea:** [`spec/ideas/specstudio-plan-skill.md`](../spec/ideas/specstudio-plan-skill.md)
+- **Next step:** run `specstudio:specify` on the Idea to produce a Feature, then implement.
 
 ### `build` — Roadmap
 

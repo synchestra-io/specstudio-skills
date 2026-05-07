@@ -1,12 +1,12 @@
 # Feature: Recap Skill
 
-> [View in Spec Studio](https://specstudio.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Frecap) — graph, discussions, approvals
+> [View in SpecStudio](https://specstudio.synchestra.io/project/features?id=specstudio-skills@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Frecap) — graph, discussions, approvals
 
 **Status:** Draft
 
 ## Summary
 
-The `recap` skill is intended to summarize what was actually built against what was specified, surfacing spec↔code drift before review. The skill is not yet defined — no Idea has been written, and the scope below is a placeholder to be refined via `spec-studio:ideate`.
+The `recap` skill is intended to summarize what was actually built against what was specified, surfacing spec↔code drift before review. The skill is not yet defined — no Idea has been written, and the scope below is a placeholder to be refined via `specstudio:ideate`.
 
 ## Problem
 
@@ -18,7 +18,7 @@ A `recap` step exists to make drift visible as a first-class artifact, before re
 
 The skill is *intended* to: load a Feature, the Plan that satisfied it, the commits associated with the Plan's tasks, and the `verify` report — then produce a structured recap that lists what was built, what was specified, and where the two diverge. Drift items should be surfaced as either Proposals (to be incorporated into the Feature) or as risks (to be flagged for review).
 
-This is intent, not contract. The actual scope, drift-detection rules, and output format need to be defined through `spec-studio:ideate`.
+This is intent, not contract. The actual scope, drift-detection rules, and output format need to be defined through `specstudio:ideate`.
 
 ## Acceptance Criteria
 

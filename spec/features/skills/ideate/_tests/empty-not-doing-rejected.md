@@ -14,7 +14,7 @@ GIVEN the user manually edits the artifact and removes all entries from `Not Doi
 WHEN the user re-runs `specscore lint spec/ideas/my-idea.md`
 THEN lint reports rule `I-002` as an error
 AND lint exits non-zero
-AND the `hard-gate` AC blocks any downstream `spec-studio:specify` invocation
+AND the `hard-gate` AC blocks any downstream `specstudio:specify` invocation
 
 ---
 *This document follows the https://specscore.md/scenario-specification*

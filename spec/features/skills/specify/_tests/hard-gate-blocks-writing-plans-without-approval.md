@@ -4,7 +4,7 @@
 
 ## Steps
 
-GIVEN the user has invoked `spec-studio:specify` and the skill has written `spec/features/checkout-v2/README.md` plus `spec/features/checkout-v2/requirements/payment.md`
+GIVEN the user has invoked `specstudio:specify` and the skill has written `spec/features/checkout-v2/README.md` plus `spec/features/checkout-v2/requirements/payment.md`
 AND `specscore lint spec/features/checkout-v2/` exits non-zero (one AC is not in G/W/T form)
 WHEN the skill or the user attempts to invoke `writing-plans` against the same Feature
 THEN the skill refuses to invoke `writing-plans`

@@ -17,7 +17,7 @@ Turn raw ideas into sharp, SpecScore-compatible Idea artifacts through structure
 ## Hard Gate
 
 <HARD-GATE>
-Do NOT invoke `spec-studio:specify`, `writing-plans`, or any implementation skill until:
+Do NOT invoke `specstudio:specify`, `writing-plans`, or any implementation skill until:
   1. An Idea artifact has been written to `spec/ideas/<slug>.md`.
   2. `specscore lint spec/ideas/<slug>.md` passes.
   3. The user has explicitly approved the Recommended Direction.
@@ -30,7 +30,7 @@ Ideas that can't be lint-clean aren't ready to be specified.
 - Raw, vague, or unvalidated concept.
 - User unsure whether an idea is worth building.
 - Multiple possible directions with no clear winner.
-- **Skip** when: the user already has an approved Idea or a clear, high-conviction feature to specify — go straight to `spec-studio:specify`.
+- **Skip** when: the user already has an approved Idea or a clear, high-conviction feature to specify — go straight to `specstudio:specify`.
 
 ## Philosophy
 
@@ -319,7 +319,7 @@ Both `idea.drafted` (re-emissions) and `idea.updated` events carry three change-
 
 **Out of scope for this skill.** Synchestra handles promotion:
 
-1. When `spec-studio:specify` (or the user) creates a Feature with `source_idea: <idea-id>` in its front-matter, Synchestra detects the link.
+1. When `specstudio:specify` (or the user) creates a Feature with `source_idea: <idea-id>` in its front-matter, Synchestra detects the link.
 2. Synchestra transitions the Idea `status: Approved → Specified`.
 3. Synchestra auto-populates the Idea's `promotes_to` with the list of Feature IDs.
 4. Synchestra emits `idea.specified`.
@@ -350,7 +350,7 @@ Both `idea.drafted` (re-emissions) and `idea.updated` events carry three change-
 - Empty "Not Doing" list
 - Writing to `docs/ideas/` instead of `spec/ideas/`
 - Manually editing `promotes_to`
-- Jumping to `spec-studio:specify` before user approval
+- Jumping to `specstudio:specify` before user approval
 - Silently bootstrapping `spec/ideas/` without telling the user
 - Looping `specscore lint --fix` more than once
 - Encoding the skill's own list of "rules `--fix` shouldn't touch" — that policy belongs to the `specscore` CLI; if it gets it wrong, fix it there

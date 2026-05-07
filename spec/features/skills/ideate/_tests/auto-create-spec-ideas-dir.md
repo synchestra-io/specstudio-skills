@@ -5,7 +5,7 @@
 ## Steps
 
 GIVEN a project with no `spec/ideas/` directory
-AND the user invokes `spec-studio:ideate` with a vague concept
+AND the user invokes `specstudio:ideate` with a vague concept
 WHEN the skill reaches Phase 3 and is about to write the artifact
 THEN the skill creates the directory `spec/ideas/`
 AND the skill creates `spec/ideas/README.md` as a lint-clean Index artifact (`type: index`, empty Contents table, "None at this time." Outstanding Questions)
