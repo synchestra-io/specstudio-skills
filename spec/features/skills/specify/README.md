@@ -317,7 +317,6 @@ The skill never transitions to any skill other than `writing-plans`. When the us
 
 ## Outstanding Questions
  Currently the spec lists three examples (missing Source Ideas, non-G/W/T ACs, empty Outstanding Questions); the canonical list should live in `shared/specscore-lint-rules.md` and be referenced.
-- Should `feature.updated` be debounced when the user makes many small edits in succession, or always emitted per lint pass? The latter matches `idea.updated` symmetry but may produce noisy event streams during heavy iteration.
 - When a user invokes `specify` with a clear intent that bypasses an existing Approved Idea, should the skill require the user to either link that Idea via `Source Ideas` or explicitly waive it? Currently silent.
 - Should the status transition on user approval be `Draft → In Progress` (current spec) or `Draft → Approved`? SpecScore's Feature spec uses `In Progress`; ideate uses `Approved`. The two skills currently disagree on terminology.
 - **Reviewer registration mechanism.** The skill supports additional reviewers per `reviewer-extension-hook`, but the registration mechanism is unspecified. Candidate mechanisms: (a) project setting in a config file (`.synchestra/config.yaml`), (b) plugin manifest entries, (c) convention-based discovery (e.g., scan `spec/reviewers/<name>/`), (d) explicit invocation flag. Defer the choice until at least one real second reviewer ships and the consumer's needs are concrete.

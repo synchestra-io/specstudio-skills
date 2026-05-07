@@ -30,6 +30,14 @@ payload:
 - **Hook:** Skills invoke `synchestra emit <event.yaml>` (CLI) when available; fall back to direct file append otherwise.
 - **Idempotency:** Each event includes a `uuid` (assigned by emitter). Synchestra dedupes by uuid.
 
+## Unaggregated by Design
+
+The event stream is **deliberately unaggregated**. Skills emit one event per successful lint pass, even during heavy iteration sessions where the same artifact changes many times in close succession. There is no skill-side debouncing, throttling, or coalescing.
+
+This is a single-source-of-truth choice: the skill is a faithful **event source**, not an event aggregator. Aggregation is a consumer concern. Different consumers want different debounce policies — a Hub live view may want ~1-minute coalescing for a fluid feel; a CI system that triggers builds on every change wants no debouncing; a Slack notification bot may want 5-minute coalescing to avoid spam. A skill-side debounce would serve none of them well.
+
+**For consumers that want to debounce:** use the envelope `timestamp` to suppress events fired within your chosen window. The envelope's `artifact.id` is stable across emissions so coalescing per artifact is straightforward. The same approach works for any `*.updated` event in this vocabulary.
+
 ## Events Emitted by `spec-studio:ideate`
 
 ### `idea.drafted`
