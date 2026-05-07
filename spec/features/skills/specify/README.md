@@ -137,11 +137,32 @@ Before dispatching the reviewer subagent, the skill MUST scan the Feature for: (
 
 ### Reviewer subagent gate
 
-A subagent provides a structured second opinion on the spec before the user sees it.
+A subagent provides a structured second opinion on the spec before the user sees it. The skill ships with a built-in reviewer (the **baseline**) and supports running additional reviewers as an extension.
 
 #### REQ: reviewer-subagent-required
 
-The skill MUST dispatch the spec-document reviewer subagent (per the prompt at `skills/specify/references/reviewer-prompt.md`) after lint passes and before presenting the Feature to the user. The subagent's verdict MUST be `Approved` before the User Review Gate runs. On `Issues Found`, the skill MUST address every blocker-severity finding and re-dispatch the subagent. Advisory recommendations MAY be ignored.
+The skill MUST dispatch at least the built-in spec-document reviewer subagent (per the prompt at `skills/specify/references/reviewer-prompt.md`) after lint passes and before presenting the Feature to the user. Every dispatched reviewer's verdict MUST be `Approved` before the User Review Gate runs. On `Issues Found` from any reviewer, the skill MUST address every blocker-severity finding and re-dispatch every reviewer that previously returned `Issues Found`. Advisory recommendations MAY be ignored.
+
+#### REQ: reviewer-baseline-blockers
+
+The built-in reviewer MUST treat the following finding categories as **blocker-severity**. These are semantic checks that complement (do not duplicate) `specscore lint`'s syntactic checks:
+
+1. **Scope spans multiple subsystems.** The Feature describes work that should be decomposed into multiple Features.
+2. **Unobservable `Then` clause.** An AC whose outcome cannot be checked (e.g., "Then the user feels confident", "Then performance is acceptable" with no metric).
+3. **AC coverage gap.** A requirement's ACs collectively do not exercise the requirement's full statement.
+4. **Architecture↔requirements contradiction.** A claim in the Architecture or Behavior section contradicts a requirement's stated rule.
+5. **Vague requirement.** A requirement interpretable two ways (the reviewer must surface both interpretations).
+6. **Missing source-Idea reasoning.** When an originating Idea exists but the Feature does not justify how its Recommended Direction was preserved or deliberately departed from.
+
+Findings outside these six categories MAY be returned as `Advisory` severity. Future expansions to the baseline blocker list happen via Proposal once the Feature is `Stable`.
+
+#### REQ: reviewer-extension-hook
+
+The skill MUST support running additional reviewer subagents beyond the built-in one. Each additional reviewer is itself a subagent contract returning `Approved` or `Issues Found` with its own blocker / advisory categorization (defined by that reviewer's own prompt or contract). The mechanism for *registering* additional reviewers is deferred — see Outstanding Questions.
+
+#### REQ: reviewer-composition
+
+When the skill runs multiple reviewers (built-in plus one or more extensions), the composition is **AND**: every reviewer MUST return `Approved` for the User Review Gate to release. Any single `Issues Found` from any reviewer blocks the gate. The skill MUST NOT silently downgrade a blocker finding from any reviewer to advisory severity, and MUST NOT skip a registered reviewer.
 
 ### User review and approval
 
@@ -266,9 +287,9 @@ After each write/edit, lint is run; on failure, `specscore lint --fix` is attemp
 
 ### AC: reviewer-then-user
 
-**Requirements:** specify#req:reviewer-subagent-required, specify#req:user-approval-required
+**Requirements:** specify#req:reviewer-subagent-required, specify#req:reviewer-baseline-blockers, specify#req:reviewer-extension-hook, specify#req:reviewer-composition, specify#req:user-approval-required
 
-The reviewer subagent must return `Approved` before the user is shown the Feature. On `Issues Found`, every blocker is addressed and the subagent is re-dispatched. The user's approval is independent of and downstream from the subagent's; both are required.
+At minimum the built-in reviewer subagent must return `Approved` before the user is shown the Feature, with the six baseline blocker categories applied. When additional reviewers are registered, all must return `Approved` (AND composition — any single `Issues Found` blocks). On `Issues Found` from any reviewer, every blocker is addressed and the failing reviewers are re-dispatched. The user's approval is independent of and downstream from every reviewer's; all are required.
 
 ### AC: approval-detection
 
@@ -296,12 +317,13 @@ The skill never transitions to any skill other than `writing-plans`. When the us
 
 ## Outstanding Questions
 
-- Should the explicit set of "blocker-severity" reviewer findings (per `reviewer-subagent-required`) be enumerated in this Feature, or left to the reviewer prompt and a separate spec? Currently delegated.
 - Should `specify` enforce a maximum requirement count per Feature (e.g., 10) to push back on multi-Feature scope smuggling, or is the decomposition check sufficient?
 - What is the exact list of lint violations excluded from `specscore lint --fix` in `lint-failure-recovery`? Currently the spec lists three examples (missing Source Ideas, non-G/W/T ACs, empty Outstanding Questions); the canonical list should live in `shared/specscore-lint-rules.md` and be referenced.
 - Should `feature.updated` be debounced when the user makes many small edits in succession, or always emitted per lint pass? The latter matches `idea.updated` symmetry but may produce noisy event streams during heavy iteration.
 - When a user invokes `specify` with a clear intent that bypasses an existing Approved Idea, should the skill require the user to either link that Idea via `Source Ideas` or explicitly waive it? Currently silent.
 - Should the status transition on user approval be `Draft → In Progress` (current spec) or `Draft → Approved`? SpecScore's Feature spec uses `In Progress`; ideate uses `Approved`. The two skills currently disagree on terminology.
+- **Reviewer registration mechanism.** The skill supports additional reviewers per `reviewer-extension-hook`, but the registration mechanism is unspecified. Candidate mechanisms: (a) project setting in a config file (`.synchestra/config.yaml`), (b) plugin manifest entries, (c) convention-based discovery (e.g., scan `spec/reviewers/<name>/`), (d) explicit invocation flag. Defer the choice until at least one real second reviewer ships and the consumer's needs are concrete.
+- **When does the reviewer concept earn its own Feature?** The built-in reviewer is currently described in this Feature plus a prose prompt at `skills/specify/references/reviewer-prompt.md`. Once a second reviewer ships, or once the baseline blocker list grows past ~8 entries, promote the reviewer to its own SpecScore Feature at `spec/features/spec-document-reviewer/` (sibling, not sub-feature, since `plan` and `ship` may also load reviewers).
 
 ---
 *This document follows the https://specscore.md/feature-specification*

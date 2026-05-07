@@ -12,6 +12,8 @@ Scenarios validating the [Specify Skill feature](../README.md). Each scenario re
 | [source-ideas-references-must-resolve.md](source-ideas-references-must-resolve.md) | `specify#ac:source-idea-linkage` |
 | [requirements-need-given-when-then-acs.md](requirements-need-given-when-then-acs.md) | `specify#req:ac-format` |
 | [reviewer-subagent-must-approve-before-user.md](reviewer-subagent-must-approve-before-user.md) | `specify#ac:reviewer-then-user` |
+| [baseline-reviewer-enforces-default-blockers.md](baseline-reviewer-enforces-default-blockers.md) | `specify#req:reviewer-baseline-blockers` |
+| [additional-reviewer-veto-blocks-approval.md](additional-reviewer-veto-blocks-approval.md) | `specify#req:reviewer-composition` |
 | [rehearse-decision-recorded-per-ac.md](rehearse-decision-recorded-per-ac.md) | `specify#ac:rehearse-coverage` |
 | [feature-updated-event-on-post-approval-edit.md](feature-updated-event-on-post-approval-edit.md) | `specify#ac:lifecycle-events` |
 | [transition-only-to-writing-plans.md](transition-only-to-writing-plans.md) | `specify#ac:promotion-boundary-held` |
