@@ -2,7 +2,7 @@
 
 > [View in Spec Studio](https://specstudio.synchestra.io/project/features?id=spec-studio@synchestra-io@github.com&path=spec%2Ffeatures%2Fskills%2Fideate) — graph, discussions, approvals
 
-**Status:** In Progress
+**Status:** Stable
 
 ## Summary
 
@@ -258,7 +258,7 @@ The skill never edits `promotes_to`, never scaffolds a Feature, and never modifi
 
 ## Outstanding Questions
 
-- Should `auto-stage-on-create` be opt-out via a project-level setting for teams that disallow tools touching the git index? Current spec is "always stage with explicit notification" — revisit if a real team-policy conflict emerges.
+None at this time.
 
 ---
 *This document follows the https://specscore.md/feature-specification*

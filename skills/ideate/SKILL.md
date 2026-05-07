@@ -40,6 +40,8 @@ See [philosophy.md](../shared/philosophy.md). Key tenets here: *simplicity is th
 
 Artifacts land at `spec/ideas/<slug>.md`. See [path-conventions.md](../shared/path-conventions.md). Never use `docs/ideas/`.
 
+If `spec/ideas/` does not exist when the skill is invoked, **bootstrap it** before writing the first artifact: create the directory and a lint-clean `spec/ideas/README.md` index (`type: index`, empty Contents table, `Outstanding Questions: None at this time.`). Tell the user explicitly that you bootstrapped it. Never silent.
+
 ## Checklist
 
 Create a task for each and complete in order:
@@ -48,11 +50,12 @@ Create a task for each and complete in order:
 2. **Scope decomposition check** — if the request describes multiple independent subsystems, stop and help the user split into multiple Ideas before proceeding.
 3. **Phase 1 — Understand & Expand** (divergent).
 4. **Phase 2 — Evaluate & Converge**.
-5. **Phase 3 — Crystallize** as a SpecScore Idea artifact. Prefer the `specscore new idea` CLI scaffold over a direct file write when the CLI is available (see Phase 3 below).
-6. **Lint** the artifact: `specscore lint spec/ideas/<slug>.md`.
-7. **Inline self-review** — placeholders, contradictions, ambiguity, scope.
-8. **User review** — ask the user to review and approve the Recommended Direction.
-9. **Emit events** — `idea.drafted` on first write; `idea.approved` after user approval. See [synchestra-events.md](../shared/synchestra-events.md).
+5. **Phase 3 — Crystallize** as a SpecScore Idea artifact. Bootstrap `spec/ideas/` if missing. Prefer the `specscore new idea` CLI scaffold over a direct file write when the CLI is available (see Phase 3 below).
+6. **Lint** the artifact: `specscore lint spec/ideas/<slug>.md`. On failure, run `specscore lint --fix` once, re-lint; surface remaining violations to the user.
+7. **Auto-stage** every file you created (`spec/ideas/<slug>.md`, plus the bootstrap files if any) with `git add`. Tell the user the staged paths. Never commit on the user's behalf.
+8. **Inline self-review** — placeholders, contradictions, ambiguity, scope.
+9. **User review** — ask the user to review and approve the Recommended Direction. Recognize explicit approval phrases (`approve`, `approved`, `accept`, `accepted`, `lgtm`, plus their semantic equivalents in the user's language); treat vague positive signals as soft and ask one explicit confirmation question.
+10. **Emit events** — `idea.drafted` on every successful lint pass while `status: Draft`; `idea.approved` exactly once on approval; `idea.updated` on every successful lint pass while `status: Approved`. See [synchestra-events.md](../shared/synchestra-events.md).
 
 ## Phase 1 — Understand & Expand (Divergent)
 
@@ -101,6 +104,16 @@ After the user reacts to Phase 1, shift to convergent mode. Cadence becomes **si
 
 **Prefer the CLI when available.** `specscore new idea <slug>` produces a lint-clean skeleton by construction and updates `spec/ideas/README.md` for you. Subsequent edits must preserve that lint-clean state.
 
+### Step 3.0 — Bootstrap `spec/ideas/` if missing
+
+Before invoking the CLI or writing the file directly, check that `spec/ideas/` exists. If not:
+
+1. Create the directory.
+2. Create `spec/ideas/README.md` as a lint-clean Index artifact (`type: index`, `status: Stable`, empty Contents table, `Outstanding Questions: None at this time.`). The CLI will append to this index when it scaffolds the artifact; the fallback path appends manually.
+3. Tell the user, e.g., *"Bootstrapped `spec/ideas/` and `spec/ideas/README.md` (this project didn't have an ideas tree yet)."*
+
+This step MUST NOT happen silently.
+
 ### Step 3a — Detect the CLI
 
 Probe once with Bash:
@@ -147,9 +160,30 @@ If the probe succeeds, take the **CLI path**. Otherwise, take the **fallback pat
 
 If the CLI is not on PATH, write the file directly using the schema below. The content must be identical to what the CLI would produce.
 
-### Step 3d — Lint
+### Step 3d — Lint (with bounded auto-recovery)
 
 In both paths, after the artifact is complete, run `specscore lint spec/ideas/<slug>.md`. The CLI scaffold is lint-clean on generation; your subsequent `Edit`s must not break that.
+
+**On lint failure:**
+
+1. Run `specscore lint --fix spec/ideas/<slug>.md` exactly once.
+2. Re-run `specscore lint spec/ideas/<slug>.md`.
+3. If lint now passes: continue. Tell the user what was auto-fixed.
+4. If lint still fails: surface the remaining violations to the user with rule IDs and affected sections. Do NOT loop `--fix`.
+
+**Never auto-fix:** rule `I-002` (Not Doing required) and rule `I-003` (Must-be-true assumption required) violations always require human input. Surface immediately, never `--fix`.
+
+### Step 3e — Auto-stage in git
+
+After every successful artifact write or edit, stage the affected paths:
+
+```bash
+git add spec/ideas/<slug>.md
+# plus any bootstrap files you created in Step 3.0
+git add spec/ideas/README.md
+```
+
+Report the staged paths to the user in the same response. Never run `git commit` — staging only. If staging fails (no git repo, detached worktree, lock contention), surface the failure and continue without aborting the artifact write.
 
 ### Schema (authoritative — used by both paths)
 
@@ -223,12 +257,43 @@ After lint + self-review pass:
 
 > "Idea drafted and lint-clean at `spec/ideas/<slug>.md`. Please review the Recommended Direction and MVP Scope. Approve to move to specify, or request changes."
 
-Wait. If the user requests changes, make them and re-lint. Only proceed once the user approves.
+Wait. If the user requests changes, make them, re-lint (with the auto-recovery flow above), re-stage, and emit a fresh `idea.drafted` event. Only proceed once the user approves.
 
-On approval:
+### Recognizing approval
+
+**Explicit approval — transition immediately, no confirmation prompt:**
+
+The following phrases (case-insensitive, optional surrounding punctuation) count as unambiguous approval:
+
+- English: `approve`, `approved`, `accept`, `accepted`, `lgtm`
+- Direct semantic equivalents in any language the user is communicating in: `aprobar` / `aprobado` (Spanish), `approuver` / `approuvé` (French), `承認` / `承認する` (Japanese), `одобрить` / `одобрено` / `принято` (Russian), `批准` / `同意` (Chinese), `genehmigen` / `genehmigt` (German), and so on.
+
+The criterion is semantic, not lexical: the phrase must function as a verb form meaning "I give explicit approval" in the source language. Recognize it when the phrase is the standalone response or the dominant content of a short response. If the phrase appears only incidentally in a longer message ("we should approve this approach but I have one concern…"), do NOT treat it as approval — address the concern first.
+
+**Vague positive signals — ask one explicit confirmation question:**
+
+Phrases like `looks good`, `yeah`, `nice`, `ship it`, `+1`, `🚀`, `confirm`, `yes`, `ok`, `sí`, `oui`, `да`, `はい`, `好` are NOT explicit approval. They signal positive sentiment but are ambiguous in conversational context. On detecting one, respond with a single confirmation prompt:
+
+> "Treat that as approval?"
+
+Wait for the user. Proceed only on a follow-up explicit phrase. Never silently transition status on a vague signal.
+
+### On confirmed approval
+
 - Update `status: Draft → Approved` in the front-matter.
 - Re-run lint.
-- Emit `idea.approved` event.
+- Emit `idea.approved` event (exactly once per Idea).
+
+## Post-Approval Iteration
+
+Once `status: Approved`, the Idea is alive but not frozen. The user MAY edit it further (refine the Recommended Direction, add an Open Question, update assumptions). On every subsequent successful lint pass after a write or edit:
+
+- Status remains `Approved` (never roll back to `Draft`).
+- Emit `idea.updated` (NOT `idea.drafted`).
+- Do NOT re-emit `idea.approved`.
+- Re-stage the changed file with `git add`.
+
+`idea.updated` is the signal Synchestra uses to notify Features that declare this Idea as a `Source Ideas` entry, so downstream specs can reconcile.
 
 ## Promotion to Feature(s)
 
@@ -244,14 +309,16 @@ On approval:
 ## Verification
 
 - [ ] Artifact exists at `spec/ideas/<slug>.md`
-- [ ] `specscore lint` passes
+- [ ] `spec/ideas/` and `spec/ideas/README.md` exist (bootstrap if needed; never silent)
+- [ ] `specscore lint` passes (auto-recovery via `--fix` attempted at most once on initial failure)
+- [ ] All created files staged with `git add` and reported to user (never committed)
 - [ ] "How Might We" statement, target user, success criteria all explicit
 - [ ] ≥2 alternatives stress-tested
 - [ ] Assumptions audited across Must/Should/Might tiers
 - [ ] "Not Doing" list non-empty
-- [ ] User approved the Recommended Direction
+- [ ] User approved the Recommended Direction (explicit phrase OR vague-signal followed by explicit confirmation)
 - [ ] `status` is `Approved` (if approved) or `Draft` (if not yet)
-- [ ] `idea.drafted` / `idea.approved` events emitted
+- [ ] Events emitted per state: `idea.drafted` while Draft; `idea.approved` once on transition; `idea.updated` while Approved
 
 ## Red Flags
 
@@ -263,6 +330,11 @@ On approval:
 - Writing to `docs/ideas/` instead of `spec/ideas/`
 - Manually editing `promotes_to`
 - Jumping to `spec-studio:specify` before user approval
+- Silently bootstrapping `spec/ideas/` without telling the user
+- Looping `specscore lint --fix` more than once
+- Treating `yes` / `ok` / `sí` / `oui` / `+1` / `🚀` as explicit approval (silent status transition on vague signal)
+- Running `git commit` instead of `git add` (skill stages, never commits)
+- Emitting `idea.drafted` for an Approved artifact, or re-emitting `idea.approved`
 
 ## Tone
 
