@@ -8,6 +8,8 @@
 
 The `specstudio:ideate` skill refines raw, vague concepts into lint-clean SpecScore Idea artifacts through a three-phase dialogue (Understand & Expand, Evaluate & Converge, Crystallize). Its output (`spec/ideas/<slug>.md`) is the gating input for `specstudio:specify` and the only sanctioned way to produce a SpecScore Idea inside SpecStudio. Implementation lives at [`skills/ideate/`](../../../../skills/ideate/).
 
+**Provenance.** This skill is adapted from `addyosmani/agent-skills`'s `idea-refine` skill — its three-phase divergent/convergent structure, lens library (inversion, constraint removal, audience shift, combination, simplification, 10x, expert lens), refinement criteria (painkiller vs. vitamin, differentiation tiers, Must/Should/Might assumption audit), and Jobs-flavored tone are inherited and rebuilt against canonical SpecScore conventions (single-file `spec/ideas/<slug>.md`, body-metadata header fields, lint-enforced Not-Doing list and assumption tiers). Scope-decomposition discipline and the mandatory-artifact policy ("unsaved ideation is waste") are grafted from `obra/superpowers`'s `brainstorming`. The full mapping of inherited vs. grafted vs. dropped patterns lives in [`spec/research/ideate-vs-brainstorming-skills-analysis.md`](../../../research/ideate-vs-brainstorming-skills-analysis.md).
+
 ## Problem
 
 Vague intent silently corrupts every downstream artifact. When a developer tells an AI agent "build me X" without first articulating the problem, alternatives, and explicit non-goals, the agent fills in the gaps stochastically — producing features that solve the wrong problem, miss the obvious "Not Doing" boundary, or inherit unstated assumptions as if they were specifications.
