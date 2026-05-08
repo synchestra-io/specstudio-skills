@@ -10,7 +10,7 @@ Pre-spec one-pagers for SpecStudio. Each Idea is the output of `specstudio:ideat
 |------|--------|------|-------|-------------|
 | [specstudio-init-skill](specstudio-init-skill.md) | Approved | 2026-05-08 | alexander.trakhimenok | — |
 | [specstudio-plan-skill](specstudio-plan-skill.md) | Approved | 2026-04-20 | alexander.trakhimenok | — |
-| [third-party-skill-integration-contracts](third-party-skill-integration-contracts.md) | Approved | 2026-05-08 | alexander.trakhimenok | — |
+| [third-party-skill-integration-contracts](third-party-skill-integration-contracts.md) | Implementing | 2026-05-08 | alexander.trakhimenok | third-party-integration |
 
 ## Outstanding Questions
 

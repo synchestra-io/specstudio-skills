@@ -9,6 +9,7 @@ Feature specifications for the SpecStudio plugin. This index lists every top-lev
 | Feature | Status | Description |
 |---------|--------|-------------|
 | [`skills/`](skills/README.md) | Approved | Umbrella feature for the per-skill sub-features that specify each Claude Code skill's purpose, gates, inputs, outputs, and lifecycle position. |
+| [third-party-integration](third-party-integration/README.md) | Defines the contract for integrating third-party agent skills with SpecScore artifacts via three shapes (Producer, Reviewer, Capability), with explicit non-goal for Shape-3 third-party Producers. |
 
 ### skills
 
