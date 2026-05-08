@@ -190,7 +190,33 @@ Fix inline. Don't re-review; move on.
 
 ## Reviewer Subagent
 
-Dispatch a spec-document-reviewer subagent using [reviewer-prompt.md](references/reviewer-prompt.md). Status must be `Approved` before the user review gate. If `Issues Found`, fix and re-dispatch — advisory recommendations may be ignored.
+Dispatch the **built-in baseline reviewer** using [reviewer-prompt.md](references/reviewer-prompt.md). It enforces the six baseline blocker categories (scope spans subsystems / unobservable Then / AC coverage gap / architecture↔requirements contradiction / vague REQ / missing source-Idea reasoning). Status must be `Approved` before the user review gate.
+
+**Additional registered reviewers (third-party).** Read `specscore.yaml` at the repo root. If it contains a top-level `reviewers:` extension key (per the [`third-party-integration`](../../spec/features/third-party-integration/README.md) Feature's `reviewer-registration-mechanism` REQ), dispatch each registered reviewer **in addition to** the baseline:
+
+```yaml
+# Example shape — see third-party-integration Feature for the canonical contract
+reviewers:
+  - name: security-baseline
+    prompt: spec/reviewers/security-baseline/prompt.md
+    description: Enforces auth/data-handling/secret-management blockers
+  - name: ux-accessibility
+    prompt: spec/reviewers/ux-accessibility/prompt.md
+```
+
+For each entry: read the `prompt` file (which MUST be a path inside the repo working tree per `reviewer-prompt-location`), confirm it contains an explicit blocker/advisory taxonomy section (per `reviewer-contract` and `AC: reviewer-registration-and-composition`), and dispatch the reviewer using the same Agent-tool dispatch pattern as the baseline. A reviewer prompt missing a documented taxonomy fails the reviewer registration AC — surface this to the user as a registry error, do not silently skip the reviewer.
+
+**Composition is AND.** The User Review Gate releases only when **every** registered reviewer plus the baseline returns `Approved`. Any single `Issues Found` from any reviewer blocks the gate. On `Issues Found`:
+
+1. Address every blocker-severity finding from every failing reviewer.
+2. Re-dispatch every reviewer that previously returned `Issues Found`.
+3. Re-dispatch reviewers that previously returned `Approved` when the fix changes the Feature's structural sections (Behavior, Architecture, Acceptance Criteria) — `reviewer-composition` makes this MUST for structural changes, SHOULD for REQ/AC changes covered by previously-Approved reviewers.
+
+Advisory findings MAY be ignored.
+
+The skill MUST NOT silently downgrade a blocker to advisory severity, MUST NOT skip a registered reviewer, and MUST NOT proceed past the User Review Gate while any reviewer's last verdict is `Issues Found`.
+
+When `specscore.yaml` does not contain a `reviewers:` key, only the built-in baseline reviewer runs — the absence of the key is not an error.
 
 ## User Review Gate
 
