@@ -1,8 +1,28 @@
-# Skills Ecosystem Analysis: SpecScore + Superpowers + Agent-Skills
+# Skills Ecosystem Analysis: Superpowers + agent-skills (with SpecScore Lens)
 
-**Status:** Draft
-**Date:** 2026-04-09
+**Status:** Partially superseded — see status note below
+**Date:** 2026-04-09 (original); status note added 2026-05-08
 **Author:** Alexander Trakhimenok (with Claude)
+**Role in `competitors/`:** Dossier of record for **`obra/superpowers`** and **`addyosmani/agent-skills`** as direct skill-layer competitors. Pairs with [`github-spec-kit/`](github-spec-kit/) (the CLI-layer competitor). The landscape entry point is [`README.md`](README.md).
+
+## Status Note (added 2026-05-08)
+
+This document originated the analysis that produced `specstudio:ideate` and `specstudio:specify`. Sections 5–7 are **historical** — Section 5's "Unified Ideation Workflow" was the proposal that shipped as those two skills; Section 6's integration roadmap is partly executed; Section 7's P0 action item is done.
+
+**Still actionable:**
+- Section 3.2 — reference checklists (security, performance, accessibility) as `references/` and lint inputs
+- Section 3.3 — agent personas (`code-reviewer`, `security-auditor`, `test-engineer`)
+- Section 3.4 — anti-rationalization patterns in skills/specs
+- Section 3.5 — deployment-gate / launch-checklist
+- Section 3.6 — lightweight ADR format
+- Section 8 — open questions 2–4
+
+**Superseded:**
+- Section 5 (Unified Ideation Workflow) — implemented as `specstudio:ideate` + `specstudio:specify`. See [`../ideate-vs-brainstorming-skills-analysis.md`](../ideate-vs-brainstorming-skills-analysis.md) for the current design rationale.
+- Section 7 P0 (`spec/ideas/` directory) — done.
+- Section 8 question 1 — answered: skills live in `specstudio-skills`.
+
+The Superpowers / agent-skills inventories below (Section 1) and the gap analysis (Sections 3–4) remain the canonical reference for those projects' skill-layer surface.
 
 ## Problem Statement
 

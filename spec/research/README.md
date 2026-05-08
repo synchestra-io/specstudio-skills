@@ -8,9 +8,8 @@ Long-form research notes informing SpecStudio's design. These are not Features â
 
 | Note | Topic |
 |------|-------|
-| [competitors/](./competitors/README.md) | How SpecStudio skills sit alongside other SDD and agent-discipline tools (Spec Kit, Superpowers, agent-skills). Entry point for skill-layer competitive comparisons. |
+| [competitors/](./competitors/README.md) | How SpecStudio skills sit alongside other SDD and agent-discipline tools (Spec Kit, Superpowers, agent-skills). Entry point for skill-layer competitive comparisons; competitor dossiers live underneath. |
 | [ideate-vs-brainstorming-skills-analysis.md](./ideate-vs-brainstorming-skills-analysis.md) | Deep comparison between `specstudio:ideate` / `specstudio:specify` and `obra/superpowers/brainstorming` â€” the upstream pattern this lifecycle was derived from |
-| [skills-ecosystem-analysis.md](./skills-ecosystem-analysis.md) | Survey of the agent-skills ecosystem (Anthropic, Microsoft, etc.) to position SpecStudio against neighbouring conventions |
 
 ## Conventions
 
