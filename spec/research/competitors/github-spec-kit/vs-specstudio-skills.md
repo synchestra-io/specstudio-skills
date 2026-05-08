@@ -35,7 +35,7 @@ If Spec Kit is the on-ramp, and Superpowers/agent-skills are the workflow librar
 | **Invocation** | Slash commands generated *by the CLI* into the agent's command directory | Skill tool (`Skill` / `skill` / `activate_skill`), plus optional slash aliases | Skill tool, plus `/ideate` and `/specify` aliases |
 | **Authoring funnel** | 7 stages: constitution → specify → clarify → plan → tasks → analyze → implement | 2 disjoint pieces: `idea-refine` (agent-skills) for divergence; `brainstorming` (superpowers) for design gating | 2 composed stages: `specstudio:ideate` (divergence + convergence) → `specstudio:specify` (design + gating) |
 | **Output location** | `.specify/specs/{N}-{name}/spec.md` (etc.) inside the product repo | `docs/ideas/<name>.md` (agent-skills) and `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` (superpowers) | `spec/ideas/<slug>.md` and `spec/features/<slug>/README.md` — typed, lintable |
-| **Output format** | Prose markdown with `[NEEDS CLARIFICATION]` string markers | Freeform markdown | YAML front-matter + structured body sections; promotion graph; status lifecycle |
+| **Output format** | Prose markdown with `[NEEDS CLARIFICATION]` string markers | Freeform markdown | SpecScore-typed: title-prefix dispatch key (`# Idea: …` / `# Feature: …`), bold-prefixed body metadata (`**Status:**`, `**Date:**`, …), fixed section schema, promotion graph, status lifecycle |
 | **Validation** | None at the format level (agent is expected to follow templates) | None | `specscore lint` rejects placeholders, missing sections, broken promotion links |
 | **"Too simple to spec" defense** | Implicit via funnel | Explicit (Superpowers `brainstorming` `<HARD-GATE>`) | Explicit, inherited from Superpowers, plus enforced by lint failure |
 | **Divergent ideation** | Not a first-class step | Yes — agent-skills `idea-refine` ships SCAMPER, HMW, JTBD, etc. | Yes — `specstudio:ideate` references `frameworks.md` borrowed from agent-skills |
@@ -63,7 +63,7 @@ SpecStudio skills are **skills that the agent loads natively**. There is no sepa
 
 Spec Kit produces prose markdown with conventions. The conventions are useful for humans and pliable for agents, but `[NEEDS CLARIFICATION]` is a string match, not a schema. Two Spec Kit users producing two `spec.md` files cannot in general be diffed, merged, queried, or lint-coupled across a fleet.
 
-SpecStudio skills emit YAML-front-mattered, schema-validated artifacts. `specscore lint` rejects placeholders, missing required sections, broken `promotes_to` links, and Idea/Feature graph violations. The artifacts are tool-readable: Synchestra agents pick them up by ID; Rehearse generates test stubs from the Given/When/Then ACs; CI gates merges that touch features tracing to archived Ideas.
+SpecStudio skills emit SpecScore-typed artifacts: title-prefix dispatch key (`# Idea: …` / `# Feature: …`), bold-prefixed body metadata (`**Status:**`, `**Date:**`, `**Owner:**`, …), and a fixed section schema. `specscore lint` rejects placeholders, missing required sections, missing required header fields, broken promotion links, and Idea/Feature graph violations. The artifacts are tool-readable: Synchestra agents pick them up by slug-as-ID; Rehearse generates test stubs from the Given/When/Then ACs; CI gates merges that touch features tracing to archived Ideas.
 
 **Consequence:** SpecStudio skills' deliverable is a **typed contract** that survives the conversation. Spec Kit's deliverable is a **shared convention** that needs everyone in the loop to agree.
 
@@ -129,7 +129,7 @@ This is fine. The two are aimed at different runtimes anyway: Spec Kit's authori
 Already covered exhaustively in [`../../ideate-vs-brainstorming-skills-analysis.md`](../../ideate-vs-brainstorming-skills-analysis.md). One-paragraph rollup for this doc:
 
 - **vs. agent-skills `idea-refine`:** SpecStudio's `ideate` keeps the 3-phase divergent/convergent structure and the framework library, but makes the artifact mandatory (`spec/ideas/<slug>.md`, lintable) instead of optional, and adds an explicit promotion graph to Features.
-- **vs. Superpowers `brainstorming`:** SpecStudio's `specify` keeps the `<HARD-GATE>`, the one-question-at-a-time cadence, the reviewer subagent, and the visual companion (optional), but replaces freeform `docs/superpowers/specs/YYYY-MM-DD-*.md` with a typed `spec/features/<slug>/` tree; date and authorship live in YAML front-matter, not the filename.
+- **vs. Superpowers `brainstorming`:** SpecStudio's `specify` keeps the `<HARD-GATE>`, the one-question-at-a-time cadence, the reviewer subagent, and the visual companion (optional), but replaces freeform `docs/superpowers/specs/YYYY-MM-DD-*.md` with a typed `spec/features/<slug>/` tree; date and authorship live in bold-prefixed body metadata, not the filename.
 - **vs. agent-skills `spec-driven-development`:** Both push "spec before code"; agent-skills produces prose, SpecStudio produces a SpecScore Feature. Where agent-skills relies on the agent's discipline, SpecStudio backstops with lint and a reviewer subagent.
 
 In short: SpecStudio skills don't *replace* the upstream skills — they restate the same disciplines on top of a typed substrate, then add the substrate-specific affordances (graph, lint, events, addressability) the upstreams can't have because they don't have a substrate.

@@ -54,7 +54,7 @@ These notes are research, not contracts. The comparison subject is the *skill se
 | **github/spec-kit** | Python CLI + per-agent install matrix; 7-stage slash-command funnel | Prose markdown in `.specify/specs/{N}-{name}/` | None at the format level (`[NEEDS CLARIFICATION]` is a string, not a schema) | MIT |
 | **obra/superpowers** | Skill set (Claude Code / Copilot CLI / Gemini CLI / Codex / OpenCode) | Freeform markdown in `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` | None; relies on `<HARD-GATE>` + reviewer subagent + user approval | MIT |
 | **addyosmani/agent-skills** | Skill set (Claude Code) + reference checklists + agent personas | Freeform markdown in `docs/ideas/<name>.md`, etc. | None; relies on per-skill checklists and anti-rationalization tables | MIT |
-| **synchestra-io/specstudio-skills** | Skill set (Claude Code / Copilot CLI / Gemini CLI) backed by `specscore` CLI | Typed artifacts in `spec/ideas/<slug>.md`, `spec/features/<slug>/` with YAML front-matter and structured body | `specscore lint` + reviewer subagent + user approval | Apache-2.0 (skills) + CC BY 4.0 (SpecScore spec text) |
+| **synchestra-io/specstudio-skills** | Skill set (Claude Code / Copilot CLI / Gemini CLI) backed by `specscore` CLI | Typed artifacts in `spec/ideas/<slug>.md`, `spec/features/<slug>/` — bold-prefixed body metadata (`**Status:**`, `**Date:**`, …) per the SpecScore convention, plus a fixed section schema | `specscore lint` + reviewer subagent + user approval | Apache-2.0 (skills) + CC BY 4.0 (SpecScore spec text) |
 
 ---
 
@@ -63,7 +63,7 @@ These notes are research, not contracts. The comparison subject is the *skill se
 ### vs. **github/spec-kit**
 
 - **Different runtime layer.** Spec Kit is a CLI that *generates* slash commands into the agent's command directory; SpecStudio skills *are* the skills the agent loads natively. No per-agent install matrix; no template generation step.
-- **Typed contracts vs. shared conventions.** Spec Kit emits prose markdown with conventions; SpecStudio emits YAML-front-mattered, schema-validated artifacts that survive the conversation as machine-readable contracts.
+- **Typed contracts vs. shared conventions.** Spec Kit emits prose markdown with conventions; SpecStudio emits SpecScore-typed artifacts (title-prefix dispatch key, bold-prefixed body metadata, fixed section schema) that lint clean against `specscore lint` and survive the conversation as machine-readable contracts.
 - **Hierarchical WBS.** Spec Kit's `tasks.md` is flat with `[P]` parallel markers; SpecStudio artifacts compose into Idea → Feature(s) → Requirement(s) → AC(s) → Plan(s) → Task(s) graphs.
 - **Stronger gates.** Spec Kit funnels but doesn't refuse — skip a stage and nothing stops you. SpecStudio's `<HARD-GATE>` plus lint refuses to advance until the artifact is structurally correct *and* humanly approved.
 - **Different distribution arithmetic.** Spec Kit has GitHub's distribution (~92k stars, 30+ agent integrations, 100+ community extensions); SpecStudio is pre-1.0. The product-level recommendation in [`github-spec-kit/README.md`](github-spec-kit/README.md) is to *integrate, not compete* — ship `speckit-specscore` as a preset and `speckit-synchestra` as an extension.
@@ -73,7 +73,7 @@ Full skill-layer detail: [`github-spec-kit/vs-specstudio-skills.md`](github-spec
 ### vs. **obra/superpowers** (`brainstorming`)
 
 - **Same gating philosophy, typed output.** SpecStudio's `specify` inherits the `<HARD-GATE>`, one-question-at-a-time cadence, reviewer subagent, and optional visual companion — but writes to `spec/features/<slug>/` (typed, lintable, addressable) instead of `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` (prose, file-named-by-date).
-- **Front-matter beats filename conventions.** Date and authorship live in YAML, not the filename. Slugs become stable IDs that promotion links can resolve.
+- **Body metadata beats filename conventions.** Date and authorship live in `**Date:**` / `**Owner:**` lines under the title, not in the filename. Slugs become stable IDs that promotion links can resolve.
 - **Lint replaces vibes.** Superpowers' "spec self-review" is a prompt that asks the agent to check its own work; SpecStudio backstops the same review with `specscore lint` so placeholders, missing sections, and broken graph edges become machine-detected failures.
 
 Full detail: [`../ideate-vs-brainstorming-skills-analysis.md`](../ideate-vs-brainstorming-skills-analysis.md).
@@ -164,7 +164,7 @@ When a new tool enters the SDD or agent-discipline space:
 
 ## Conventions
 
-- **Date every analysis.** Competitor docs rot fast — the date in the front-matter tells the reader how stale the comparison is.
+- **Date every analysis.** Competitor docs rot fast — the date at the top tells the reader how stale the comparison is.
 - **Quote, don't paraphrase, key claims.** When characterizing a competitor's design choice, link the source so the original is verifiable.
 - **No speculation without labels.** If a capability is inferred from marketing rather than shipped product, say so explicitly.
 - **No marketing language about ourselves.** This tree is for thinking, not selling.
