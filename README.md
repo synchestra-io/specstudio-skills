@@ -16,15 +16,15 @@ Alongside it:
   - [**Rehearse**](https://rehearse.synchestra.io/) — the markdown-native test framework for SpecScore specs. SpecStudio scaffolds Rehearse test stubs from acceptance criteria.
 - [**Synchestra**](https://synchestra.io/) — the engine that runs dispatched work. Headless; you never really "use" it directly.
 - [**Synchestra Hub**](https://hub.synchestra.io/) — the portfolio view. When you want to step back from this project and see all your projects and runners, that's Hub.
-- [**Synchestra AI Marketplace**](https://github.com/synchestra-io/ai-marketplace) — the plugin marketplace where SpecStudio and related Synchestra plugins are published for Claude Code and compatible clients.
+- [**Sneat AI Marketplace**](https://github.com/sneat-co/ai-marketplace) — the plugin marketplace where SpecStudio and related Synchestra plugins are published for Claude Code and compatible clients.
 
 ## Install
 
-Published on the [Synchestra AI Marketplace](https://github.com/synchestra-io/ai-marketplace). Install into Claude Code in two steps:
+Published on the [Sneat AI Marketplace](https://github.com/sneat-co/ai-marketplace). Install into Claude Code in two steps:
 
 ```
-/plugin marketplace add synchestra-io/ai-marketplace
-/plugin install specstudio@synchestra-io
+/plugin marketplace add sneat-co/ai-marketplace
+/plugin install specstudio@sneat-co
 ```
 
 The first command registers the marketplace once; the second installs (and later updates) the plugin. Run `/plugin uninstall specstudio` to remove it.
@@ -33,8 +33,8 @@ The first command registers the marketplace once; the second installs (and later
 
 The `specstudio` plugin declares two dependencies on sibling plugins in the same marketplace:
 
-- **`specscore@synchestra-io`** — wraps the `specscore` CLI as agent skills for SpecScore lint, navigation, and lifecycle operations. Repo: [`ai-plugin-specscore`](https://github.com/synchestra-io/ai-plugin-specscore).
-- **`synchestra@synchestra-io`** — wraps the `synchestra` CLI as agent skills for task and session orchestration. Repo: [`ai-plugin-synchestra`](https://github.com/synchestra-io/ai-plugin-synchestra).
+- **`specscore@sneat-co`** — wraps the `specscore` CLI as agent skills for SpecScore lint, navigation, and lifecycle operations. Repo: [`ai-plugin-specscore`](https://github.com/synchestra-io/ai-plugin-specscore).
+- **`synchestra@sneat-co`** — wraps the `synchestra` CLI as agent skills for task and session orchestration. Repo: [`ai-plugin-synchestra`](https://github.com/synchestra-io/ai-plugin-synchestra).
 
 Both are **installed automatically** when you install `specstudio` — Claude Code resolves the dependency graph and reports each transitive install at the end of the install output. Uninstalling `specstudio` does not remove them; run `claude plugin prune` (or `claude plugin uninstall specstudio --prune`) to clean them up if you don't want them around.
 
